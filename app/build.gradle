@@ -54,6 +54,8 @@ ext{
     splash_version = "1.0.0"
     glide_version = "4.14.2"
     okhttp_version = "4.9.3"
+    room_version = "2.4.3"
+    palette_version = "1.0.0"
 }
 
 dependencies {
@@ -65,6 +67,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation "com.google.android.material:material:$materialDesigne_version"
+    implementation "androidx.palette:palette:$palette_version"
 
     //SPLASH SCREEN
     implementation "androidx.core:core-splashscreen:$splash_version"
@@ -99,4 +102,8 @@ dependencies {
     //Glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+
+    // ROOM
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 }

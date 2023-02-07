@@ -9,7 +9,9 @@ data class OrderBookResponse(
     @Expose
     @SerializedName("sequence") val sequence: String?,
     @Expose
-    @SerializedName("binds") val binds: List<BindsResponse>?
+    @SerializedName("binds") val binds: List<BindsResponse>?,
+    @Expose
+    @SerializedName("asks") val asks: List<BindsResponse>
 )
 
 data class BindsResponse(

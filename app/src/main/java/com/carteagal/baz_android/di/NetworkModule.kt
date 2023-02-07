@@ -1,7 +1,10 @@
 package com.carteagal.baz_android.di
 
-import com.carteagal.baz_android.data.service.CryptoApiClient
+import com.carteagal.baz_android.data.remote.dataSources.CryptoRemoteDataSourceImp
+import com.carteagal.baz_android.data.remote.dataSources.CryptoRemoteDataSources
+import com.carteagal.baz_android.data.remote.service.CryptoApiClient
 import com.carteagal.baz_android.utils.Constants.BASE_URL
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,6 +17,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+
 
     @Singleton
     @Provides
@@ -28,5 +32,4 @@ object NetworkModule {
     @Provides
     fun provideApiClient(retrofit: Retrofit): CryptoApiClient =
         retrofit.create(CryptoApiClient::class.java)
-
 }

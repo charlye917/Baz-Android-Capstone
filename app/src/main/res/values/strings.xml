@@ -1,5 +1,12 @@
 <resources>
-    <string name="app_name">Baz-Android-Capstone</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Bitsop</string>
+    <string name="internet_error">Problemas al conectar con el servicio</string>
+    <string name="generic_subtitle_error">Por el momento, no se pudo completar la solicitud. Intenta más tarde.</string>
+    <string name="last_update">Última actualizacion: %s</string>
+    <string name="amount">Monto</string>
+    <string name="price">Precio</string>
+    <string-array name="transactions_list">
+        <item>Ask</item>
+        <item>Bid</item>
+    </string-array>
 </resources>

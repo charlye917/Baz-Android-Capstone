@@ -1,9 +1,9 @@
 package com.carteagal.baz_android.utils
 
-import com.carteagal.baz_android.utils.Constants.IMAGE_SIZE
-import com.carteagal.baz_android.utils.Constants.PATH_ICON
+import com.carteagal.baz_android.utils.Constants.BASE_IMAGE_URL
+import com.carteagal.baz_android.utils.Constants.UNDERSCORE
 
 object BaseUrlImage {
-    fun generateUrlImage(book: String, style: String = "") =
-        Constants.BASE_IMAGE_URL + PATH_ICON + book.split("_")[0] + "/" + IMAGE_SIZE
+    fun generateUrlImage(book: String) =
+        "$BASE_IMAGE_URL/128/color/${book.split(UNDERSCORE)[0]}.png"
 }

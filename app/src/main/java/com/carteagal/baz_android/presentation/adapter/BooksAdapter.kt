@@ -5,9 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.carteagal.baz_android.data.model.availableBook.AvailableBookUI
+import com.carteagal.baz_android.domain.model.AvailableBookUI
 import com.carteagal.baz_android.databinding.ItemBookListBinding
-import com.carteagal.baz_android.utils.extension.loadImage
+import com.carteagal.baz_android.utils.extension.View.loadImage
+import com.carteagal.baz_android.utils.extension.getAbbreviation
+import com.carteagal.baz_android.utils.extension.getBookName
+import com.carteagal.baz_android.utils.extension.getMoney
 import com.carteagal.baz_android.utils.extension.toAmountFormat
 
 class BooksAdapter(
@@ -24,11 +27,11 @@ class BooksAdapter(
         RecyclerView.ViewHolder(binding.root){
         fun bind(book: AvailableBookUI){
             binding.txtNameBook.text = book.name
-            binding.txtMaxAmount.text = book.maxPrice.toAmountFormat()
-            binding.txtMinAmount.text = book.minPrice.toAmountFormat()
-            binding.imgLogo.loadImage(book.imageUrl)
+            binding.txtMaxAmount.text = "${book.maxPrice?.toAmountFormat()} ${book.typeMoney}"
+            binding.txtMinAmount.text = "${book.minPrice?.toAmountFormat()} ${book.typeMoney}"
+            binding.txtAbv.text = "${book.fullName?.getAbbreviation()} - ${book.typeMoney}"
+            binding.imgLogo.loadImage(book.imageUrl ?: "")
             binding.cardViewInfo.setOnClickListener { onClickListener(book) }
-            //binding.txtMinAmount.text = String.format("%.2f", book.minimumPrice)
         }
     }
 

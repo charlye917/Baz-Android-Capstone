@@ -1,6 +1,7 @@
 package com.carteagal.baz_android.presentation.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.carteagal.baz_android.R
-import com.carteagal.baz_android.data.model.availableBook.AvailableBookUI
-import com.carteagal.baz_android.data.model.tickerResponse.TickerResponse
-import com.carteagal.baz_android.data.network.Resources
+import com.carteagal.baz_android.data.remote.network.Resources
 import com.carteagal.baz_android.databinding.FragmentBookDetailBinding
-import com.carteagal.baz_android.databinding.ItemPresentationBookBinding
+import com.carteagal.baz_android.domain.model.TickerUI
 import com.carteagal.baz_android.presentation.viewmodel.CryptoViewModel
-import com.carteagal.baz_android.utils.extension.loadImage
+import com.carteagal.baz_android.utils.extension.View.loadImage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,29 +44,41 @@ class BookDetailFragment : Fragment() {
         urlBookImage = args.urlBook
         cryptoViewModel.getTicker(bookName)
         loadData()
+        setUpTransactionParams()
     }
 
     private fun loadData(){
         cryptoViewModel.ticker.observe(viewLifecycleOwner) { response ->
+            Log.d("__tag ticker", response.toString())
             when (response) {
                 is Resources.Success -> {
-                    setUpView(response.data!!)
+                    Log.d("__tag success", response.data.toString())
+                    setUpView(response.data)
                 }
-                is Resources.Error -> {}
+                is Resources.Error -> {
+                    Log.d("__tag error", response.error.message)
+                }
             }
         }
     }
 
-    private fun setUpView(ticker: TickerResponse){
+    private fun setUpView(ticker: TickerUI){
         binding.itemCardInfo.apply {
-            txtNameBook.text = ticker.book
-            txtPrice.text = ticker.last
-            txtHighPrice.text = ticker.high
-            txtLowPrice.text = ticker.low
-            txtAsk.text = ticker.ask
-            txtBind.text = ticker.bid
-            txtLastModification.text = ticker.createdAt
-            imgLogo.loadImage(urlBookImage)
+            txtNameBook.text = ticker.bookName
+            txtPrice.text = ticker.lastModification
+            txtHighPrice.text = ticker.highPrice.toString()
+            txtLowPrice.text = ticker.lowPrice.toString()
+            txtAsk.text = ticker.ask.toString()
+            txtBind.text = ticker.bind.toString()
+            txtLastModification.text = getString(R.string.last_update, ticker.lastModification)
+            imgLogo.loadImage(ticker.urlBook)
+        }
+    }
+
+    private fun setUpTransactionParams(){
+        _binding.tabLayout.apply {
+            context.resources.getStringArray(R.array.transactions_list)
+                .map { addTab(newTab().setText(it)) }
         }
     }
 }

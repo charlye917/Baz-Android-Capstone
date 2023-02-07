@@ -11,5 +11,5 @@ data class BaseServiceResponse<T>(
     @SerializedName("payload") val result: T? = null,
 
     @Expose
-    @SerializedName("error") val error: ErrorBase? = null
+    @SerializedName("error") val error: BaseError? = null
 )
