@@ -1,14 +1,18 @@
 package com.carteagal.baz_android.data.model
 
-import com.carteagal.baz_android.R
-import com.carteagal.baz_android.data.model.base.BaseError
-import com.carteagal.baz_android.data.remote.network.Resources
+import android.os.Parcelable
+import com.carteagal.baz_android.utils.Constants.BASE_IMAGE_URL
+import com.carteagal.baz_android.utils.Constants.EXTENSION_PNG
+import com.carteagal.baz_android.utils.Constants.SIZE_COLOR
+import com.carteagal.baz_android.utils.extension.separeteUnderscore
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class AvailableBookResponse(
     @Expose
-    @SerializedName("book") val book: String?,
+    @SerializedName("book") val book: String? = "",
     @Expose
     @SerializedName("minimum_price") val minimumPrice: String?,
     @Expose
@@ -23,4 +27,7 @@ data class AvailableBookResponse(
     @SerializedName("maximum_value") val maximumValue: String?,
     @Expose
     @SerializedName("tick_size") val tickSize: String?,
-)
+): Parcelable{
+    fun generateUrlImage() =
+        "$BASE_IMAGE_URL$SIZE_COLOR${book?.separeteUnderscore()}$EXTENSION_PNG"
+}

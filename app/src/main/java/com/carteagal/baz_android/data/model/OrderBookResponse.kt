@@ -1,4 +1,4 @@
-package com.carteagal.baz_android.data.model.orderBook
+package com.carteagal.baz_android.data.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
@@ -9,12 +9,12 @@ data class OrderBookResponse(
     @Expose
     @SerializedName("sequence") val sequence: String?,
     @Expose
-    @SerializedName("binds") val binds: List<BindsResponse>?,
+    @SerializedName("bids") val bids: List<AskBindsResponse>?,
     @Expose
-    @SerializedName("asks") val asks: List<BindsResponse>
+    @SerializedName("asks") val asks: List<AskBindsResponse>?
 )
 
-data class BindsResponse(
+data class AskBindsResponse(
     @Expose
     @SerializedName("book") val book: String?,
     @Expose

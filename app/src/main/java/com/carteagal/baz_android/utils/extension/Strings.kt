@@ -6,6 +6,7 @@ import com.carteagal.baz_android.utils.Constants.FORMAT_DATE_WITH_TIME
 import com.carteagal.baz_android.utils.Constants.FORMAT_DATE_WITH_TIME_PATTERN
 import com.carteagal.baz_android.utils.Constants.UNDERSCORE
 import com.carteagal.baz_android.utils.NameCrypto
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,6 +22,8 @@ fun String.toFormatDate(): String {
     return dateFormat.format(date)
 }
 
+fun String.separeteUnderscore() =
+    this.split(UNDERSCORE)[0]
 
 fun String.getAbbreviation() =
     this.split(UNDERSCORE)[0].uppercase()

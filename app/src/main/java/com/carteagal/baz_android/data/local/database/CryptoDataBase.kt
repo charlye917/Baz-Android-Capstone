@@ -1,7 +1,9 @@
 package com.carteagal.baz_android.data.local.database
 
+import androidx.databinding.adapters.Converters
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.carteagal.baz_android.data.local.dao.AvailableBookDao
 import com.carteagal.baz_android.data.local.dao.OrderBookDao
 import com.carteagal.baz_android.data.local.dao.TickerDao

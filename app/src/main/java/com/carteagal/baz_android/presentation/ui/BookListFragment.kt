@@ -4,9 +4,15 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.carteagal.baz_android.data.remote.network.Resources
@@ -31,6 +37,7 @@ class BookListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragmentBookListBinding.inflate(layoutInflater)
         return  binding.root
     }
@@ -38,6 +45,7 @@ class BookListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUpMenu()
         loadData()
         setUpRecyclerView()
     }
@@ -46,20 +54,27 @@ class BookListFragment : Fragment() {
         cryptoViewModel.availableBooks.observe(viewLifecycleOwner) { result ->
             when(result){
                 is Loading -> {
-                    Log.d("__tag loading", result.toString())
+                    _binding.progressBar.visibility = View.VISIBLE
                 }
                 is Success -> {
-                    Log.d("__tag succes", result.data.toString())
                     booksAdapter.submitList(result.data)
+                    _binding.progressBar.visibility = View.GONE
                 }
                 is Error -> {
+                    _binding.progressBar.visibility = View.GONE
                     Log.d("__tag error", result.message.toString())
-                }
-                else -> {
-                    Log.d("__tag else", "entro else")
                 }
             }
         }
+    }
+
+    private fun setUpMenu(){
+        (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {}
+
+            override fun onMenuItemSelected(menuItem: MenuItem) = true
+
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun setUpRecyclerView(){
@@ -73,4 +88,6 @@ class BookListFragment : Fragment() {
     private fun changeFragmentOnClick(bookInfo: AvailableBookUI){
         findNavController().navigate(BookListFragmentDirections.actionBookListFragmentToBookDetailFragment(bookInfo.fullName ?: "", bookInfo.imageUrl ?: ""))
     }
+
+
 }

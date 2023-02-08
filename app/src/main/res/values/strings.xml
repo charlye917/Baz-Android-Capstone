@@ -3,10 +3,15 @@
     <string name="internet_error">Problemas al conectar con el servicio</string>
     <string name="generic_subtitle_error">Por el momento, no se pudo completar la solicitud. Intenta más tarde.</string>
     <string name="last_update">Última actualizacion: %s</string>
+    <string name="price_product">Precio</string>
     <string name="amount">Monto</string>
-    <string name="price">Precio</string>
+    <string name="price">Precio: %s %s</string>
+    <string name="price_hight">Precio más alto: %s %s</string>
+    <string name="price_low">Precio más bajo: %s %s</string>
+    <string name="bid">Oferta: %s %s</string>
+    <string name="ask">Demanda: %s %s</string>
     <string-array name="transactions_list">
-        <item>Ask</item>
-        <item>Bid</item>
+        <item>Oferta</item>
+        <item>Demanda</item>
     </string-array>
 </resources>

@@ -1,7 +1,7 @@
 package com.carteagal.baz_android.data.remote.dataSources
 
 import com.carteagal.baz_android.data.model.AvailableBookResponse
-import com.carteagal.baz_android.data.model.orderBook.OrderBookResponse
+import com.carteagal.baz_android.data.model.OrderBookResponse
 import com.carteagal.baz_android.data.model.TickerResponse
 import com.carteagal.baz_android.data.model.base.BaseServiceResponse
 import com.carteagal.baz_android.data.remote.service.CryptoApiClient
@@ -14,7 +14,7 @@ class CryptoRemoteDataSourceImp @Inject constructor(
     override suspend fun getAvailableBooks(): BaseServiceResponse<List<AvailableBookResponse>> =
         apiClient.getAvailableBooks()
 
-    override suspend fun getOrderBooks(book: String): BaseServiceResponse<List<OrderBookResponse>> =
+    override suspend fun getOrderBooks(book: String): BaseServiceResponse<OrderBookResponse> =
         apiClient.getOrderBooks(book)
 
      override suspend fun getTicker(book: String): BaseServiceResponse<TickerResponse> =

@@ -9,8 +9,6 @@ import com.carteagal.baz_android.domain.model.AvailableBookUI
 import com.carteagal.baz_android.databinding.ItemBookListBinding
 import com.carteagal.baz_android.utils.extension.View.loadImage
 import com.carteagal.baz_android.utils.extension.getAbbreviation
-import com.carteagal.baz_android.utils.extension.getBookName
-import com.carteagal.baz_android.utils.extension.getMoney
 import com.carteagal.baz_android.utils.extension.toAmountFormat
 
 class BooksAdapter(

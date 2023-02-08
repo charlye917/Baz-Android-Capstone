@@ -26,11 +26,9 @@ class TickerRepository @Inject constructor(
 ){
     suspend fun getTickerInfo(book: String): Flow<Resources<TickerResponse>> = flow {
         emit(Loading)
-        Log.d("__tag respo", book)
         val localData = tickerDao.getTicker(book)
         try {
             val response = apiDataSource.getTicker(book)
-            Log.d("__tag repo", response.result.toString())
             when{
                 response.success && response.result != null-> {
                     tickerDao.deleteTicker(book)
@@ -41,7 +39,6 @@ class TickerRepository @Inject constructor(
                 else -> { emit(Error(error = BaseError(message = response.error!!.message, code = response.error.code)))}
             }
         }catch (e: Exception){
-            Log.d("__tag repo catch", e.message.toString())
             if(localData.bookName != null)
                 emit(Success(localData.tickerEntityToResponse()))
             else
