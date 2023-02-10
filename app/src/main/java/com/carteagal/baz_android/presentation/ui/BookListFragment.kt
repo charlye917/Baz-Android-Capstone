@@ -45,25 +45,18 @@ class BookListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        cryptoViewModel.getAvailableBooks()
+
         setUpMenu()
         loadData()
         setUpRecyclerView()
     }
 
     private fun loadData(){
-        cryptoViewModel.availableBooks.observe(viewLifecycleOwner) { result ->
-            when(result){
-                is Loading -> {
-                    _binding.progressBar.visibility = View.VISIBLE
-                }
-                is Success -> {
-                    booksAdapter.submitList(result.data)
-                    _binding.progressBar.visibility = View.GONE
-                }
-                is Error -> {
-                    _binding.progressBar.visibility = View.GONE
-                    Log.d("__tag error", result.message.toString())
-                }
+        cryptoViewModel.apply {
+            availableBooks.observe(viewLifecycleOwner) { booksAdapter.submitList(it) }
+            loading.observe(viewLifecycleOwner){
+                binding.progressBar.visibility = if(it) View.VISIBLE else View.GONE
             }
         }
     }
@@ -71,9 +64,7 @@ class BookListFragment : Fragment() {
     private fun setUpMenu(){
         (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {}
-
             override fun onMenuItemSelected(menuItem: MenuItem) = true
-
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
@@ -88,6 +79,4 @@ class BookListFragment : Fragment() {
     private fun changeFragmentOnClick(bookInfo: AvailableBookUI){
         findNavController().navigate(BookListFragmentDirections.actionBookListFragmentToBookDetailFragment(bookInfo.fullName ?: "", bookInfo.imageUrl ?: ""))
     }
-
-
 }

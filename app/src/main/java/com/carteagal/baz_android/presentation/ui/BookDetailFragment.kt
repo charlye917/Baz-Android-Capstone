@@ -10,15 +10,19 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.carteagal.baz_android.R
-import com.carteagal.baz_android.data.model.AskBindsResponse
+import com.carteagal.baz_android.data.remote.model.AskBindsResponse
 import com.carteagal.baz_android.data.remote.network.Resources
 import com.carteagal.baz_android.data.remote.network.Resources.Error
 import com.carteagal.baz_android.data.remote.network.Resources.Loading
 import com.carteagal.baz_android.data.remote.network.Resources.Success
 import com.carteagal.baz_android.databinding.FragmentBookDetailBinding
+import com.carteagal.baz_android.domain.model.AskBindUI
 import com.carteagal.baz_android.domain.model.TickerUI
 import com.carteagal.baz_android.presentation.adapter.AskBindsAdapter
 import com.carteagal.baz_android.presentation.viewmodel.CryptoViewModel
+import com.carteagal.baz_android.utils.TypeAskBid
+import com.carteagal.baz_android.utils.TypeAskBid.ASKS
+import com.carteagal.baz_android.utils.TypeAskBid.BIDS
 import com.carteagal.baz_android.utils.extension.View.loadImage
 import com.carteagal.baz_android.utils.extension.getAbbreviation
 import com.carteagal.baz_android.utils.extension.getBookName
@@ -41,8 +45,8 @@ class BookDetailFragment : Fragment() {
 
     private lateinit var bookName: String
     private lateinit var urlBookImage: String
-    private var asks = listOf<AskBindsResponse>()
-    private var bids = listOf<AskBindsResponse>()
+    private var asks = listOf<AskBindUI>()
+    private var bids = listOf<AskBindUI>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,48 +64,25 @@ class BookDetailFragment : Fragment() {
         urlBookImage = args.urlBook
 
         cryptoViewModel.getTicker(bookName)
-        cryptoViewModel.getOrderBook(bookName)
+        cryptoViewModel.getAskBind(bookName)
 
-        loadDataTicker()
-        loadDataOrderBook()
-
+        loadData()
         setUpTransactionParams()
         setUpRecyclerView()
     }
 
-    private fun loadDataTicker(){
-        cryptoViewModel.ticker.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Loading -> {
-                    _binding.progressBar.visibility = View.VISIBLE
-                }
-                is Success -> {
-                    _binding.progressBar.visibility = View.GONE
-                    setUpView(response.data)
-                }
-                is Error -> {
-                    _binding.progressBar.visibility = View.GONE
-                    Log.d("__tag error", response.error.message)
-                }
+    private fun loadData(){
+        cryptoViewModel.apply {
+            loading.observe(viewLifecycleOwner){
+                binding.progressBar.visibility = if(it) View.VISIBLE else View.GONE
             }
-        }
-    }
-
-    private fun loadDataOrderBook(){
-        cryptoViewModel.orderBooks.observe(viewLifecycleOwner){ result ->
-            when(result){
-                is Loading -> {
-                    _binding.progressBar.visibility = View.VISIBLE
-                }
-                is Success -> {
-                    asks = result.data.asks!!
-                    bids = result.data.bids!!
-                    askBindAdapter.submitList(bids)
-                    _binding.progressBar.visibility = View.GONE
-                }
-                is Error -> {
-                    _binding.progressBar.visibility = View.GONE
-                }
+            ticker.observe(viewLifecycleOwner){
+                setUpView(it)
+            }
+            askBindList.observe(viewLifecycleOwner){ listAskBind ->
+                asks = listAskBind.filter { it.type == ASKS }
+                bids = listAskBind.filter { it.type == BIDS }
+                askBindAdapter.submitList(bids)
             }
         }
     }
@@ -109,14 +90,14 @@ class BookDetailFragment : Fragment() {
     private fun setUpView(ticker: TickerUI){
         binding.itemCardInfo.apply {
             txtNameBook.text = ticker.bookName
-            txtAbreviation.text = ticker.fullName.getAbbreviation()
-            txtPrice.text = getString(R.string.price, ticker.price.toAmountFormat(), ticker.typeMoney)
-            txtHighPrice.text = getString(R.string.price_hight, ticker.highPrice.toAmountFormat(), ticker.typeMoney)
-            txtLowPrice.text = getString(R.string.price_low, ticker.lowPrice.toAmountFormat(), ticker.typeMoney)
-            txtAsk.text = getString(R.string.ask, ticker.ask.toAmountFormat(), ticker.typeMoney)
-            txtBind.text = getString(R.string.bid, ticker.bind.toAmountFormat(), ticker.typeMoney)
+            txtAbreviation.text = ticker.fullName?.getAbbreviation()
+            txtPrice.text = getString(R.string.price, ticker.price?.toAmountFormat(), ticker.typeMoney)
+            txtHighPrice.text = getString(R.string.price_hight, ticker.highPrice?.toAmountFormat(), ticker.typeMoney)
+            txtLowPrice.text = getString(R.string.price_low, ticker.lowPrice?.toAmountFormat(), ticker.typeMoney)
+            txtAsk.text = getString(R.string.ask, ticker.ask?.toAmountFormat(), ticker.typeMoney)
+            txtBind.text = getString(R.string.bid, ticker.bind?.toAmountFormat(), ticker.typeMoney)
             txtLastModification.text = getString(R.string.last_update, ticker.lastModification)
-            imgLogo.loadImage(ticker.urlBook)
+            ticker.urlBook?.let { imgLogo.loadImage(it) }
         }
     }
 

@@ -1,9 +1,9 @@
 package com.carteagal.baz_android.data.remote.service
 
-import com.carteagal.baz_android.data.model.AvailableBookResponse
-import com.carteagal.baz_android.data.model.base.BaseServiceResponse
-import com.carteagal.baz_android.data.model.OrderBookResponse
-import com.carteagal.baz_android.data.model.TickerResponse
+import com.carteagal.baz_android.data.remote.model.AvailableBookResponse
+import com.carteagal.baz_android.data.remote.model.base.BaseServiceResponse
+import com.carteagal.baz_android.data.remote.model.OrderBookResponse
+import com.carteagal.baz_android.data.remote.model.TickerResponse
 import com.carteagal.baz_android.utils.Constants.PATH_AVAILABLE_BOOKS
 import com.carteagal.baz_android.utils.Constants.PATH_ORDER_BOOK
 import com.carteagal.baz_android.utils.Constants.PATH_TICKER

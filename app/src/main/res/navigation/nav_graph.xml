@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/book_list_fragment"
         android:name="com.carteagal.baz_android.presentation.ui.BookListFragment"
-        android:label="fragment_book_list"
+        android:label="Etereo"
         tools:layout="@layout/fragment_book_list" >
         <action
             android:id="@+id/action_bookListFragment_to_bookDetailFragment"
@@ -24,7 +24,7 @@
     <fragment
         android:id="@+id/book_detail_fragment"
         android:name="com.carteagal.baz_android.presentation.ui.BookDetailFragment"
-        android:label="fragment_book_detail"
+        android:label="Etereo"
         tools:layout="@layout/fragment_book_detail" >
         <argument
             android:name="bookName"

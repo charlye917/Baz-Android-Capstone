@@ -3,46 +3,44 @@ package com.carteagal.baz_android.data.local.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.carteagal.baz_android.data.model.AvailableBookResponse
+import com.carteagal.baz_android.data.remote.model.AvailableBookResponse
+import com.carteagal.baz_android.domain.model.AvailableBookUI
 
 @Entity(tableName = "available_book_table")
 data class AvailableBookEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id") val id: Int = 0,
-    @ColumnInfo(name = "book_name") val bookName: String? = null,
-    @ColumnInfo(name = "minimum_price") val minimumPrice: String? = null,
-    @ColumnInfo(name = "maximum_price") val maximumPrice: String? = null,
-    @ColumnInfo(name = "minimum_amount") val minimunAmount: String? = null,
-    @ColumnInfo(name = "maximum_amount") val maximumAmount: String? = null,
-    @ColumnInfo(name = "minimum_value") val minimumValue: String? = null,
-    @ColumnInfo(name = "maximum_value") val maximumValue: String? = null,
-    @ColumnInfo(name = "tick_size") val ticketSize: String? = null
+    @ColumnInfo(name = "full_name") val fullName: String? = null,
+    @ColumnInfo(name = "name") val name: String? = null,
+    @ColumnInfo(name = "type_money") val typeMoney: String? = null,
+    @ColumnInfo(name = "image_url") val imageUrl: String? = null,
+    @ColumnInfo(name = "max_price") val maxPrice: Double? = null,
+    @ColumnInfo(name = "min_price") val minPrice: Double? = null,
+    @ColumnInfo(name = "amount") val amount: Double? = null
 )
 
-fun List<AvailableBookResponse>.availableResponcesToEntity(): List<AvailableBookEntity> =
+fun List<AvailableBookUI>.availableUIToEntity(): List<AvailableBookEntity> =
     map {
         AvailableBookEntity(
-            bookName = it.book,
-            minimumPrice = it.minimumPrice,
-            maximumPrice =  it.maximumPrice,
-            minimunAmount = it.minimumAmount,
-            maximumAmount = it.maximumAmount,
-            minimumValue = it.minimumValue,
-            maximumValue = it.maximumValue,
-            ticketSize = it.tickSize
+            fullName = it.fullName,
+            name = it.name,
+            typeMoney =  it.typeMoney,
+            imageUrl = it.imageUrl,
+            maxPrice = it.maxPrice,
+            minPrice = it.minPrice,
+            amount = it.amount
         )
     }
 
-fun List<AvailableBookEntity>.availableEntitysToResponse(): List<AvailableBookResponse> =
+fun List<AvailableBookEntity>.availableEntitysToUI(): List<AvailableBookUI> =
     map {
-        AvailableBookResponse(
-            book = it.bookName,
-            minimumPrice = it.minimumPrice,
-            maximumPrice =  it.maximumPrice,
-            minimumAmount = it.minimunAmount,
-            maximumAmount = it.maximumAmount,
-            minimumValue = it.minimumValue,
-            maximumValue = it.maximumValue,
-            tickSize = it.ticketSize
+        AvailableBookUI(
+            fullName = it.fullName,
+            name = it.name,
+            typeMoney =  it.typeMoney,
+            imageUrl = it.imageUrl,
+            maxPrice = it.maxPrice,
+            minPrice = it.minPrice,
+            amount = it.amount
         )
     }

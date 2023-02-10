@@ -1,6 +1,6 @@
 package com.carteagal.baz_android.domain.mapper
 
-import com.carteagal.baz_android.data.model.TickerResponse
+import com.carteagal.baz_android.data.remote.model.TickerResponse
 import com.carteagal.baz_android.domain.model.TickerUI
 import com.carteagal.baz_android.utils.extension.getBookName
 import com.carteagal.baz_android.utils.extension.getMoney

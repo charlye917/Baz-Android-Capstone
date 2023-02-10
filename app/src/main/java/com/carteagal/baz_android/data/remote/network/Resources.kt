@@ -1,6 +1,6 @@
 package com.carteagal.baz_android.data.remote.network
 
-import com.carteagal.baz_android.data.model.base.BaseError
+import com.carteagal.baz_android.data.remote.model.base.BaseError
 
 sealed class Resources <out T>{
     data class Success<out T: Any>(val data: T): Resources<T>()

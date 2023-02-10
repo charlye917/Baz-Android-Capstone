@@ -1,9 +1,7 @@
 package com.carteagal.baz_android.domain.mapper
 
-import com.carteagal.baz_android.data.model.AvailableBookResponse
+import com.carteagal.baz_android.data.remote.model.AvailableBookResponse
 import com.carteagal.baz_android.domain.model.AvailableBookUI
-import com.carteagal.baz_android.utils.BaseUrlImage.generateUrlImage
-import com.carteagal.baz_android.utils.Constants.UNDERSCORE
 import com.carteagal.baz_android.utils.extension.getBookName
 import com.carteagal.baz_android.utils.extension.getMoney
 

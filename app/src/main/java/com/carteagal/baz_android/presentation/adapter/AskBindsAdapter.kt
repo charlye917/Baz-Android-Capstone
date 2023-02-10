@@ -1,17 +1,22 @@
 package com.carteagal.baz_android.presentation.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.carteagal.baz_android.data.model.AskBindsResponse
-import com.carteagal.baz_android.data.model.OrderBookResponse
+import com.carteagal.baz_android.data.remote.model.AskBindsResponse
+import com.carteagal.baz_android.data.remote.model.OrderBookResponse
 import com.carteagal.baz_android.databinding.ItemDetailsBookBinding
 import com.carteagal.baz_android.databinding.ItemPresentationBookBinding
+import com.carteagal.baz_android.domain.model.AskBindUI
+import com.carteagal.baz_android.utils.TypeAskBid
+import com.carteagal.baz_android.utils.TypeAskBid.ASKS
+import com.carteagal.baz_android.utils.TypeAskBid.BIDS
 import com.carteagal.baz_android.utils.extension.toAmountFormat
 
-class AskBindsAdapter(): ListAdapter<AskBindsResponse, AskBindsAdapter.ViewHolder>(AskBindCallback) {
+class AskBindsAdapter(): ListAdapter<AskBindUI, AskBindsAdapter.ViewHolder>(AskBindCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         ItemDetailsBookBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -24,23 +29,23 @@ class AskBindsAdapter(): ListAdapter<AskBindsResponse, AskBindsAdapter.ViewHolde
     inner class ViewHolder(private val binding: ItemDetailsBookBinding):
         RecyclerView.ViewHolder(binding.root){
 
-        fun bind(askBinds: AskBindsResponse){
-            binding.txtAmount.text = askBinds.amount
-            binding.txtPrice.text = askBinds.price!!.toDouble().toAmountFormat()
+        fun bind(askBinds: AskBindUI) {
+            binding.txtAmount.text = askBinds.amount.toString()
+            binding.txtPrice.text = askBinds.price.toAmountFormat()
         }
     }
 
-    private object AskBindCallback: DiffUtil.ItemCallback<AskBindsResponse>(){
+    private object AskBindCallback: DiffUtil.ItemCallback<AskBindUI>(){
         override fun areItemsTheSame(
-            oldItem: AskBindsResponse,
-            newItem: AskBindsResponse
+            oldItem: AskBindUI,
+            newItem: AskBindUI
         ): Boolean {
             return oldItem.book == newItem.book
         }
 
         override fun areContentsTheSame(
-            oldItem: AskBindsResponse,
-            newItem: AskBindsResponse
+            oldItem: AskBindUI,
+            newItem: AskBindUI
         ): Boolean {
             return oldItem == newItem
         }

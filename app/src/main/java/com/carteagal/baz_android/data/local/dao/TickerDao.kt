@@ -13,9 +13,9 @@ interface TickerDao {
     @Insert(onConflict = REPLACE)
     suspend fun insertTicker(tickerDao: TickerEntity)
 
-    @Query("SELECT * FROM ticker_table WHERE book_name = :bookName")
-    suspend fun getTicker(bookName: String): TickerEntity
+    @Query("SELECT * FROM ticker_table WHERE full_name = :bookName")
+    suspend fun getTicker(bookName: String): TickerEntity?
 
-    @Query("DELETE FROM ticker_table WHERE book_name = :bookName")
+    @Query("DELETE FROM ticker_table WHERE full_name = :bookName")
     suspend fun deleteTicker(bookName: String)
 }

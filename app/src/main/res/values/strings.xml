@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Bitsop</string>
+    <string name="app_name">Etereo</string>
     <string name="internet_error">Problemas al conectar con el servicio</string>
     <string name="generic_subtitle_error">Por el momento, no se pudo completar la solicitud. Intenta más tarde.</string>
     <string name="last_update">Última actualizacion: %s</string>

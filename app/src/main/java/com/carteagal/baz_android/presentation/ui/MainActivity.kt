@@ -5,6 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
+import com.carteagal.baz_android.R
 import com.carteagal.baz_android.data.remote.network.CheckInternetConnection
 import com.carteagal.baz_android.databinding.ActivityMainBinding
 import com.carteagal.baz_android.presentation.viewmodel.CryptoViewModel
@@ -14,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
     private lateinit var checkNetworkConnection: CheckInternetConnection
     private val cryptoViewModel: CryptoViewModel by viewModels()
 
@@ -26,8 +32,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        callNetworkConnection()
-        cryptoViewModel.getAvailableBooks()
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
+        navController = navHostFragment.findNavController()
+
+        setSupportActionBar(binding.toolbar)
+        binding.toolbar.setupWithNavController(navController)
         screenSplash.setKeepOnScreenCondition{ false }
     }
 

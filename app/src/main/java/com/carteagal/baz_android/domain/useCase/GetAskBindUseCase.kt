@@ -2,33 +2,39 @@ package com.carteagal.baz_android.domain.useCase
 
 import android.content.Context
 import com.carteagal.baz_android.R
-import com.carteagal.baz_android.data.model.OrderBookResponse
-import com.carteagal.baz_android.data.model.base.BaseError
+import com.carteagal.baz_android.data.remote.model.base.BaseError
 import com.carteagal.baz_android.data.remote.network.Resources
 import com.carteagal.baz_android.data.remote.network.Resources.Error
 import com.carteagal.baz_android.data.remote.network.Resources.Success
-import com.carteagal.baz_android.data.repository.OrderBooksRepository
+import com.carteagal.baz_android.data.remote.repository.OrderBooksRepository
+import com.carteagal.baz_android.domain.mapper.askBindMapper
+import com.carteagal.baz_android.domain.model.AskBindUI
+import com.carteagal.baz_android.utils.TypeAskBid.ASKS
+import com.carteagal.baz_android.utils.TypeAskBid.BIDS
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class GetOrderBookUseCase @Inject constructor(
+class GetAskBindUseCase @Inject constructor(
     private val orderBooksRepository: OrderBooksRepository,
     @ApplicationContext private val context: Context
 ) {
 
-    suspend operator fun invoke(book: String): Flow<Resources<OrderBookResponse>> = flow {
+    suspend operator fun invoke(book: String): Flow<Resources<List<AskBindUI>>> = flow {
         orderBooksRepository.getOrderBook(book)
             .catch { e -> e.printStackTrace() }
             .collect{ state ->
                 when(state){
                     is Success -> {
-                        val newDataUI = state.data//orderBooksMapper(state.data)
+                        val askListUI = askBindMapper(state.data.asks, ASKS)
+                        val bindListUI = askBindMapper(state.data.bids, BIDS)
+                        val newDataUI = mutableListOf<AskBindUI>()
+                        newDataUI += askListUI
+                        newDataUI += bindListUI
                         emit(Success(data = newDataUI))
                     }
                     is Error -> {

@@ -1,4 +1,4 @@
-package com.carteagal.baz_android.data.model.base
+package com.carteagal.baz_android.data.remote.model.base
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

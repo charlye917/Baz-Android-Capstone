@@ -5,7 +5,6 @@ import com.bumptech.glide.Glide
 import com.carteagal.baz_android.R
 
 object View {
-
     fun ImageView.loadImage(url: String){
         Glide
             .with(context)

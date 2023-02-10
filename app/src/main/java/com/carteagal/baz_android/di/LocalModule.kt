@@ -3,7 +3,6 @@ package com.carteagal.baz_android.di
 import android.content.Context
 import androidx.room.Room
 import com.carteagal.baz_android.data.local.database.CryptoDataBase
-import com.carteagal.baz_android.utils.Constants
 import com.carteagal.baz_android.utils.Constants.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
@@ -28,7 +27,7 @@ object LocalModule {
 
     @Singleton
     @Provides
-    fun provideOrderBookDao(database: CryptoDataBase) = database.getOrderBooks()
+    fun provideOrderBookDao(database: CryptoDataBase) = database.getAskBindDao()
 
     @Singleton
     @Provides

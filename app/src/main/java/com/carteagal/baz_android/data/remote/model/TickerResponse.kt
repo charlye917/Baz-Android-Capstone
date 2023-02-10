@@ -1,4 +1,4 @@
-package com.carteagal.baz_android.data.model
+package com.carteagal.baz_android.data.remote.model
 
 import android.os.Parcelable
 import com.carteagal.baz_android.utils.Constants

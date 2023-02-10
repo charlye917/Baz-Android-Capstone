@@ -1,5 +1,6 @@
 package com.carteagal.baz_android.presentation.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -38,6 +39,7 @@ class BooksAdapter(
             oldItem: AvailableBookUI,
             newItem: AvailableBookUI
         ): Boolean {
+            Log.d("__tag val 1", (oldItem == newItem).toString())
             return oldItem.name == newItem.name
         }
 
@@ -45,6 +47,7 @@ class BooksAdapter(
             oldItem: AvailableBookUI,
             newItem: AvailableBookUI
         ): Boolean {
+            Log.d("__tag val 2", (oldItem == newItem).toString())
             return oldItem == newItem
         }
 
