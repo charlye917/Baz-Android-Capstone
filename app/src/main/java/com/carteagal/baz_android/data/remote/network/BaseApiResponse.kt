@@ -12,14 +12,14 @@ open class BaseApiResponse {
         context: Context,
         apiCall: suspend () -> BaseServiceResponse<T>
     ): Resources<T> {
-        try {
+        return try {
             val response = apiCall()
             if(response.success && response.result != null)
-                return Success(response.result)
+                Success(response.result)
             else
-                return Error(error = BaseError(message = response.error!!.message, code = response.error.code))
+                Error(error = BaseError(message = response.error!!.message, code = response.error.code))
         }catch (e: Exception){
-            return Error(error = BaseError(message = context.getString(R.string.generic_subtitle_error)))
+            Error(error = BaseError(message = context.getString(R.string.generic_subtitle_error)))
         }
     }
 }

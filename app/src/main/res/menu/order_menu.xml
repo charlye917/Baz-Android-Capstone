@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_search"
+        android:title="Search"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_filter"
+        android:title="Filter"
+        android:icon="@drawable/ic_filter"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:title="Ordernar por:"/>
+            <item
+                android:id="@+id/action_sort_name_az"
+                android:title="Nombre A - Z"/>
+            <item
+                android:id="@+id/action_sort_name_za"
+                android:title="Nombre Z - A"/>
+            <item
+                android:id="@+id/action_sort_max"
+                android:title="Monto Max"/>
+            <item
+                android:id="@+id/action_sort_min"
+                android:title="Monto Min"/>
+        </menu>
+    </item>
+</menu>

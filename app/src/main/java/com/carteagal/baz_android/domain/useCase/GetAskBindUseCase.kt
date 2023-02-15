@@ -6,7 +6,7 @@ import com.carteagal.baz_android.data.remote.model.base.BaseError
 import com.carteagal.baz_android.data.remote.network.Resources
 import com.carteagal.baz_android.data.remote.network.Resources.Error
 import com.carteagal.baz_android.data.remote.network.Resources.Success
-import com.carteagal.baz_android.data.remote.repository.OrderBooksRepository
+import com.carteagal.baz_android.data.remote.repository.OrderBooksRepositoryNetwork
 import com.carteagal.baz_android.domain.mapper.askBindMapper
 import com.carteagal.baz_android.domain.model.AskBindUI
 import com.carteagal.baz_android.utils.TypeAskBid.ASKS
@@ -20,12 +20,12 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class GetAskBindUseCase @Inject constructor(
-    private val orderBooksRepository: OrderBooksRepository,
+    private val orderBooksRepositoryNetwork: OrderBooksRepositoryNetwork,
     @ApplicationContext private val context: Context
 ) {
 
     suspend operator fun invoke(book: String): Flow<Resources<List<AskBindUI>>> = flow {
-        orderBooksRepository.getOrderBook(book)
+        orderBooksRepositoryNetwork.getOrderBook(book)
             .catch { e -> e.printStackTrace() }
             .collect{ state ->
                 when(state){

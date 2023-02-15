@@ -1,7 +1,6 @@
 package com.carteagal.baz_android.presentation.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,26 +9,20 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.carteagal.baz_android.R
-import com.carteagal.baz_android.data.remote.model.AskBindsResponse
-import com.carteagal.baz_android.data.remote.network.Resources
-import com.carteagal.baz_android.data.remote.network.Resources.Error
-import com.carteagal.baz_android.data.remote.network.Resources.Loading
-import com.carteagal.baz_android.data.remote.network.Resources.Success
+import com.carteagal.baz_android.data.remote.network.CheckInternetConnectionTwo
 import com.carteagal.baz_android.databinding.FragmentBookDetailBinding
 import com.carteagal.baz_android.domain.model.AskBindUI
 import com.carteagal.baz_android.domain.model.TickerUI
 import com.carteagal.baz_android.presentation.adapter.AskBindsAdapter
 import com.carteagal.baz_android.presentation.viewmodel.CryptoViewModel
-import com.carteagal.baz_android.utils.TypeAskBid
+import com.carteagal.baz_android.utils.AlertError
 import com.carteagal.baz_android.utils.TypeAskBid.ASKS
 import com.carteagal.baz_android.utils.TypeAskBid.BIDS
 import com.carteagal.baz_android.utils.extension.View.loadImage
 import com.carteagal.baz_android.utils.extension.getAbbreviation
-import com.carteagal.baz_android.utils.extension.getBookName
 import com.carteagal.baz_android.utils.extension.toAmountFormat
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
-import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -63,15 +56,19 @@ class BookDetailFragment : Fragment() {
         bookName = args.bookName
         urlBookImage = args.urlBook
 
-        cryptoViewModel.getTicker(bookName)
-        cryptoViewModel.getAskBind(bookName)
+        executeService()
+        viewModelObserver()
 
-        loadData()
-        setUpTransactionParams()
+        setConfigTabLayout()
         setUpRecyclerView()
     }
 
-    private fun loadData(){
+    private fun executeService(){
+        cryptoViewModel.getTicker(bookName)
+        cryptoViewModel.getAskBind(bookName)
+    }
+
+    private fun viewModelObserver(){
         cryptoViewModel.apply {
             loading.observe(viewLifecycleOwner){
                 binding.progressBar.visibility = if(it) View.VISIBLE else View.GONE
@@ -84,6 +81,14 @@ class BookDetailFragment : Fragment() {
                 bids = listAskBind.filter { it.type == BIDS }
                 askBindAdapter.submitList(bids)
             }
+            isError.observe(viewLifecycleOwner){
+                binding.itemError.itemError.visibility = if(it) View.VISIBLE else View.GONE
+                binding.constraintInfo.visibility = if(it) View.GONE else View.VISIBLE
+            }
+            CheckInternetConnectionTwo(requireActivity().application)
+                .observe(viewLifecycleOwner){
+                    if(!it) AlertError.showAlertError(requireContext()){executeService()}
+                }
         }
     }
 
@@ -109,7 +114,7 @@ class BookDetailFragment : Fragment() {
         }
     }
 
-    private fun setUpTransactionParams(){
+    private fun setConfigTabLayout(){
         _binding.tabLayout.apply {
             context.resources.getStringArray(R.array.transactions_list).map { addTab(newTab().setText(it)) }
             addOnTabSelectedListener(object : OnTabSelectedListener{

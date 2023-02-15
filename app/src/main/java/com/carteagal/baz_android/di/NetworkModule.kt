@@ -50,7 +50,6 @@ object NetworkModule {
             .build()
     }
 
-
     @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =

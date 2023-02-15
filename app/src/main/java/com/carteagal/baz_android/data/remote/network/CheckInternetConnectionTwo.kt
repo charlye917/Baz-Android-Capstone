@@ -8,7 +8,7 @@ import android.net.Network
 import android.net.NetworkRequest
 import androidx.lifecycle.LiveData
 
-class CheckInternetConnection(private val conecctivityManager: ConnectivityManager) : LiveData<Boolean>() {
+class CheckInternetConnectionTwo(private val conecctivityManager: ConnectivityManager) : LiveData<Boolean>() {
 
     constructor(application: Application) : this(application.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager)
 
