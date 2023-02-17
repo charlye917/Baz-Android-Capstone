@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.cardview.widget.CardView
-    style="@style/Base.CardView"
+<com.google.android.material.circularreveal.cardview.CircularRevealCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view_info"
+    app:cardCornerRadius="12dp"
+    android:layout_marginVertical="4dp"
+    android:layout_marginHorizontal="8dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    app:layout_constraintTop_toTopOf="parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -26,7 +28,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txt_name_book"
             style="@style/TextTitle"
             android:layout_width="wrap_content"
@@ -37,7 +39,7 @@
             tools:text="bitcoin" />
 
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txt_abv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,7 +49,7 @@
             tools:text="MXM" />
 
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txt_max_amount"
             style="@style/AmountPositive"
             android:layout_width="wrap_content"
@@ -57,7 +59,7 @@
             app:layout_constraintTop_toTopOf="@+id/txt_name_book"
             tools:text="$1234324234" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txt_min_amount"
             style="@style/AmountNegative"
             android:layout_width="wrap_content"
@@ -66,15 +68,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_max_amount"
             tools:text="$23432" />
-
-        <View
-            android:id="@+id/separator"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/separator"
-            android:background="@android:color/darker_gray"
-            android:layout_marginTop="@dimen/margin_tiny"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_logo" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.circularreveal.cardview.CircularRevealCardView>

@@ -1,5 +1,6 @@
 package com.carteagal.baz_android.data.local.repository
 
+import android.util.Log
 import com.carteagal.baz_android.data.local.dao.AskBindDao
 import com.carteagal.baz_android.data.local.dao.AvailableBookDao
 import com.carteagal.baz_android.data.local.dao.TickerDao

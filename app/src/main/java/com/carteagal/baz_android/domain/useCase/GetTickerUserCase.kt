@@ -1,10 +1,13 @@
 package com.carteagal.baz_android.domain.useCase
 
 import android.content.Context
+import android.util.Log
 import com.carteagal.baz_android.R
+import com.carteagal.baz_android.data.local.repository.CryptoLocalRepository
 import com.carteagal.baz_android.data.remote.model.base.BaseError
 import com.carteagal.baz_android.data.remote.network.Resources
 import com.carteagal.baz_android.data.remote.network.Resources.Error
+import com.carteagal.baz_android.data.remote.network.Resources.Loading
 import com.carteagal.baz_android.data.remote.network.Resources.Success
 import com.carteagal.baz_android.data.remote.repository.TickerRepositoryNetwork
 import com.carteagal.baz_android.domain.mapper.tickerMapper
@@ -17,23 +20,28 @@ import javax.inject.Inject
 
 class GetTickerUserCase @Inject constructor(
     private val tickerRepositoryNetwork: TickerRepositoryNetwork,
-    @ApplicationContext private val context: Context
-) {
+    private val localRepository: CryptoLocalRepository
+    ) {
     suspend operator fun invoke(book: String): Flow<Resources<TickerUI>> = flow {
+        val localData = localRepository.getTickerUI(book)
         tickerRepositoryNetwork.getTickerInfo(book)
             .catch { e -> e.printStackTrace() }
             .collect{ state ->
                 when(state){
+                    is Loading -> { emit(Loading) }
                     is Success -> {
                         val newTicker = tickerMapper(state.data)
+                        localRepository.insertTicker(newTicker)
                         emit(Success(newTicker))
                     }
-                    is Error -> {
-                        val error = state.error
-                        emit(Error(BaseError(message = error.message, code = error.code)))
-                    }
+
                     else -> {
-                        emit(Error(BaseError(message = context.getString(R.string.generic_subtitle_error))))
+                        val error = state as Error
+                        Log.d("__tag ", localData.toString())
+                        if(localData.fullName != null)
+                            emit(Success(data = localRepository.getTickerUI(book)))
+                        else
+                            emit(Error(BaseError(message = error.error.message, code = error.error.code)))
                     }
                 }
             }

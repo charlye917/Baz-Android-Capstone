@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.circularreveal.cardview.CircularRevealCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/card_view_info"
-    style="@style/Base.CardView"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view_info"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="12dp"
     app:cardCornerRadius="@dimen/margin_large">
 
@@ -15,11 +14,12 @@
         android:layout_height="match_parent"
         android:layout_margin="@dimen/margin_large">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/img_logo"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@drawable/bitcoin"
+            app:strokeColor="@color/primary_color"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,7 +32,7 @@
             app:layout_constraintStart_toEndOf="@+id/img_logo"
             app:layout_constraintTop_toTopOf="@+id/img_logo">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txt_name_book"
                 style="@style/TextTitle"
                 android:textSize="24sp"
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 tools:text="Bitcoin" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txt_abreviation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                 android:textStyle="italic"
                 tools:text="BTC"/>
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txt_price"
                 style="@style/TextTitle"
                 android:layout_marginTop="2dp"
@@ -65,14 +65,14 @@
             android:layout_marginTop="12dp"
             app:layout_constraintTop_toBottomOf="@+id/img_logo">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txt_high_price"
                 style="@style/AmountPositive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="$1234324234" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txt_low_price"
                 style="@style/AmountNegative"
                 android:layout_marginTop="4dp"
@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 tools:text="$1234324234" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txt_bind"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                 tools:text="$1234324234"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txt_ask"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                 tools:text="$1234324234"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txt_last_modification"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -108,4 +108,4 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.circularreveal.cardview.CircularRevealCardView>

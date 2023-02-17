@@ -28,8 +28,7 @@ import javax.inject.Inject
 class CryptoViewModel @Inject constructor(
     private val getAvailableBooksUseCase: GetAvailableBooksUseCase,
     private val getAskBindUseCase: GetAskBindUseCase,
-    private val getTickerUserCase: GetTickerUserCase,
-    private val localRepository: CryptoLocalRepository
+    private val getTickerUserCase: GetTickerUserCase
 ): ViewModel(){
 
     private val _loading = MutableLiveData(true)
@@ -49,7 +48,6 @@ class CryptoViewModel @Inject constructor(
 
     fun getAvailableBooks(){
         viewModelScope.launch {
-            val localData = localRepository.getAllBooks()
             _loading.postValue(true)
             getAvailableBooksUseCase().collect{
                 when(it){
@@ -59,17 +57,11 @@ class CryptoViewModel @Inject constructor(
                     is Success -> {
                         _loading.postValue(false)
                         _isError.postValue(false)
-                        localRepository.insertAllBooks(it.data)
                         _availableBooks.postValue(it.data)
                     }
                     is Error -> {
                         _loading.postValue(false)
-                        if(localData.isNotEmpty()){
-                            _isError.postValue(false)
-                            _availableBooks.postValue(localData)
-                        }
-                        else
-                            _isError.postValue(true)
+                        _isError.postValue(true)
                     }
                 }
             }
@@ -78,7 +70,6 @@ class CryptoViewModel @Inject constructor(
 
     fun getTicker(book: String){
         viewModelScope.launch {
-            val localData = localRepository.getTickerUI(book)
             _loading.postValue(true)
             getTickerUserCase(book).collect{
                 when(it){
@@ -88,16 +79,11 @@ class CryptoViewModel @Inject constructor(
                     is Success -> {
                         _isError.postValue(false)
                         _loading.postValue(false)
-                        localRepository.insertTicker(it.data)
                         _ticker.postValue(it.data)
                     }
                     is Error -> {
                         _loading.postValue(false)
-                        if(!localData.fullName.isNullOrBlank()){
-                            _isError.postValue(false)
-                            _ticker.postValue(localData)
-                        }else
-                            _isError.postValue(true)
+                        _isError.postValue(true)
                     }
                 }
             }
@@ -106,7 +92,6 @@ class CryptoViewModel @Inject constructor(
 
     fun getAskBind(book: String){
         viewModelScope.launch {
-            val localData = localRepository.getAllAskBind(book)
             _loading.postValue(true)
             getAskBindUseCase(book).collect{
                 when(it){
@@ -116,17 +101,11 @@ class CryptoViewModel @Inject constructor(
                     is Success -> {
                         _loading.postValue(false)
                         _isError.postValue(false)
-                        localRepository.insertAskBind(it.data, book)
                         _askBindList.postValue(it.data)
                     }
                     is Error -> {
                         _loading.postValue(false)
-                        if(localData.isNotEmpty()){
-                            _isError.postValue(false)
-                            _askBindList.postValue(localData)
-                        }
-                        else
-                            _isError.postValue(true)
+                        _isError.postValue(true)
                     }
                 }
             }

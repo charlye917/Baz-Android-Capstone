@@ -2,10 +2,12 @@ package com.carteagal.baz_android.domain.useCase
 
 import android.content.Context
 import com.carteagal.baz_android.R
+import com.carteagal.baz_android.data.local.repository.CryptoLocalRepository
 import com.carteagal.baz_android.data.remote.model.base.BaseError
 import com.carteagal.baz_android.domain.model.AvailableBookUI
 import com.carteagal.baz_android.data.remote.network.Resources
 import com.carteagal.baz_android.data.remote.network.Resources.Error
+import com.carteagal.baz_android.data.remote.network.Resources.Loading
 import com.carteagal.baz_android.data.remote.network.Resources.Success
 import com.carteagal.baz_android.data.remote.repository.AvailableBooksRepositoryNetwork
 import com.carteagal.baz_android.domain.mapper.availableMapper
@@ -19,23 +21,26 @@ import javax.inject.Inject
 
 class GetAvailableBooksUseCase @Inject constructor(
     private val availableBooksRepositoryNetwork: AvailableBooksRepositoryNetwork,
-    @ApplicationContext private val context: Context
+    private val localRepository: CryptoLocalRepository
 ) {
     suspend operator fun invoke(): Flow<Resources<List<AvailableBookUI>>> = flow {
         availableBooksRepositoryNetwork.getAllBooks()
             .catch {e -> e.printStackTrace() }
             .collect{ state ->
                 when(state){
+                    is Loading -> { emit(Loading) }
                     is Success -> {
                         val newDataUI = availableMapper(state.data)
+                        localRepository.insertAllBooks(newDataUI)
                         emit(Success(data = newDataUI))
                     }
-                    is Error -> {
-                        val error = state.error
-                        emit(Error(BaseError(message = error.message, code = error.code)))
-                    }
                     else -> {
-                        emit(Error(BaseError(message = context.getString(R.string.generic_subtitle_error))))
+                        val error = state as Error
+                        val localData = localRepository.getAllBooks()
+                        if(localData.isNotEmpty())
+                            emit(Success(data = localData))
+                        else
+                            emit(Error(BaseError(message = error.error.message, code = error.error.code)))
                     }
                 }
             }

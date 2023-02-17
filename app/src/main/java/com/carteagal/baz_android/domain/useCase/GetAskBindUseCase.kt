@@ -2,9 +2,11 @@ package com.carteagal.baz_android.domain.useCase
 
 import android.content.Context
 import com.carteagal.baz_android.R
+import com.carteagal.baz_android.data.local.repository.CryptoLocalRepository
 import com.carteagal.baz_android.data.remote.model.base.BaseError
 import com.carteagal.baz_android.data.remote.network.Resources
 import com.carteagal.baz_android.data.remote.network.Resources.Error
+import com.carteagal.baz_android.data.remote.network.Resources.Loading
 import com.carteagal.baz_android.data.remote.network.Resources.Success
 import com.carteagal.baz_android.data.remote.repository.OrderBooksRepositoryNetwork
 import com.carteagal.baz_android.domain.mapper.askBindMapper
@@ -21,27 +23,32 @@ import javax.inject.Inject
 
 class GetAskBindUseCase @Inject constructor(
     private val orderBooksRepositoryNetwork: OrderBooksRepositoryNetwork,
-    @ApplicationContext private val context: Context
+    private val localRepository: CryptoLocalRepository
 ) {
 
     suspend operator fun invoke(book: String): Flow<Resources<List<AskBindUI>>> = flow {
+        val localData = localRepository.getAllAskBind(book)
         orderBooksRepositoryNetwork.getOrderBook(book)
             .catch { e -> e.printStackTrace() }
             .collect{ state ->
                 when(state){
+                    is Loading -> { emit(Loading) }
                     is Success -> {
                         val askListUI = askBindMapper(state.data.asks, ASKS)
                         val bindListUI = askBindMapper(state.data.bids, BIDS)
                         val newDataUI = mutableListOf<AskBindUI>()
                         newDataUI += askListUI
                         newDataUI += bindListUI
+                        localRepository.insertAskBind(newDataUI, book)
                         emit(Success(data = newDataUI))
                     }
-                    is Error -> {
-                        val error = state.error
-                        emit(Error(BaseError(message = error.message, code = error.code)))
+                    else -> {
+                        val error = state as Error
+                        if(localData.isNotEmpty())
+                            emit(Success(data = localData))
+                        else
+                            emit(Error(BaseError(message = error.error.message, code = error.error.code)))
                     }
-                    else -> { emit(Error(BaseError(message = context.getString(R.string.generic_subtitle_error))))}
                 }
             }
     }.flowOn(Dispatchers.IO)
