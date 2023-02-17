@@ -64,7 +64,8 @@ class BookDetailFragment : Fragment() {
     }
 
     private fun executeService(){
-        cryptoViewModel.getTicker(bookName)
+        //cryptoViewModel.getTicker(bookName)
+        cryptoViewModel.getTickerRx(bookName)
         cryptoViewModel.getAskBind(bookName)
     }
 

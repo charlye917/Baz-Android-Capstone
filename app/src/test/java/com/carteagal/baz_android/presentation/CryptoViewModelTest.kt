@@ -8,6 +8,7 @@ import com.carteagal.baz_android.domain.model.AvailableBookUI
 import com.carteagal.baz_android.domain.model.TickerUI
 import com.carteagal.baz_android.domain.useCase.GetAskBindUseCase
 import com.carteagal.baz_android.domain.useCase.GetAvailableBooksUseCase
+import com.carteagal.baz_android.domain.useCase.GetTickerRxUseCase
 import com.carteagal.baz_android.domain.useCase.GetTickerUserCase
 import com.carteagal.baz_android.presentation.viewmodel.CryptoViewModel
 import com.carteagal.baz_android.utils.TypeAskBid.ASKS
@@ -36,6 +37,9 @@ class CryptoViewModelTest {
 
     @RelaxedMockK
     private lateinit var getTickerUserCase: GetTickerUserCase
+
+    @RelaxedMockK
+    private lateinit var getTickerRxUseCase: GetTickerRxUseCase
 
     private lateinit var cryptoViewModel: CryptoViewModel
 
@@ -105,7 +109,8 @@ class CryptoViewModelTest {
         cryptoViewModel = CryptoViewModel(
             getAvailableBooksUseCase,
             getAskBindUseCase,
-            getTickerUserCase
+            getTickerUserCase,
+            getTickerRxUseCase
         )
         Dispatchers.setMain(Dispatchers.Unconfined)
     }

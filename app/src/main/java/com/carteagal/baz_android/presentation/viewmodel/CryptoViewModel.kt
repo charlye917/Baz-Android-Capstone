@@ -1,5 +1,6 @@
 package com.carteagal.baz_android.presentation.viewmodel
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,6 +15,7 @@ import com.carteagal.baz_android.domain.model.AskBindUI
 import com.carteagal.baz_android.domain.model.TickerUI
 import com.carteagal.baz_android.domain.useCase.GetAvailableBooksUseCase
 import com.carteagal.baz_android.domain.useCase.GetAskBindUseCase
+import com.carteagal.baz_android.domain.useCase.GetTickerRxUseCase
 import com.carteagal.baz_android.domain.useCase.GetTickerUserCase
 import com.carteagal.baz_android.utils.TypeSorts
 import com.carteagal.baz_android.utils.TypeSorts.SORT_MAX
@@ -21,14 +23,19 @@ import com.carteagal.baz_android.utils.TypeSorts.SORT_MIN
 import com.carteagal.baz_android.utils.TypeSorts.SORT_NAME_AZ
 import com.carteagal.baz_android.utils.TypeSorts.SORT_NAME_ZA
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.launch
+import java.util.concurrent.Flow
+import java.util.concurrent.Flow.Subscriber
 import javax.inject.Inject
 
 @HiltViewModel
 class CryptoViewModel @Inject constructor(
     private val getAvailableBooksUseCase: GetAvailableBooksUseCase,
     private val getAskBindUseCase: GetAskBindUseCase,
-    private val getTickerUserCase: GetTickerUserCase
+    private val getTickerUserCase: GetTickerUserCase,
+    private val getTickerRxUseCase: GetTickerRxUseCase
 ): ViewModel(){
 
     private val _loading = MutableLiveData(true)
@@ -110,6 +117,22 @@ class CryptoViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    @SuppressLint("CheckResult")
+    fun getTickerRx(book: String){
+        _loading.postValue(true)
+        getTickerRxUseCase(book)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                _loading.postValue(false)
+                _isError.postValue(false)
+                _ticker.postValue(it)
+            }, {
+                _loading.postValue(false)
+                _loading.postValue(true)
+            })
     }
 
     fun orderListBooks(sort: TypeSorts){

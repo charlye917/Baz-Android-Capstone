@@ -37,7 +37,6 @@ class GetTickerUserCase @Inject constructor(
 
                     else -> {
                         val error = state as Error
-                        Log.d("__tag ", localData.toString())
                         if(localData.fullName != null)
                             emit(Success(data = localRepository.getTickerUI(book)))
                         else
