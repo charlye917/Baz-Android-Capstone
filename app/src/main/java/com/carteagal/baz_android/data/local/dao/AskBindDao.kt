@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import com.carteagal.baz_android.data.local.entities.AskBindEntity
-import com.carteagal.baz_android.utils.TypeAskBid
 
 @Dao
 interface AskBindDao {

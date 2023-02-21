@@ -3,30 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_search"
-        android:title="Search"
+        android:title="@string/search"
         android:icon="@drawable/ic_search"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom|collapseActionView"/>
 
     <item
         android:id="@+id/action_filter"
-        android:title="Filter"
+        android:title="@string/filter"
         android:icon="@drawable/ic_filter"
         app:showAsAction="always">
         <menu>
             <item
-                android:title="Ordernar por:"/>
+                android:title="@string/order_by"/>
             <item
                 android:id="@+id/action_sort_name_az"
-                android:title="Nombre A - Z"/>
+                android:title="@string/name_a_z"/>
             <item
                 android:id="@+id/action_sort_name_za"
-                android:title="Nombre Z - A"/>
+                android:title="@string/name_z_a"/>
             <item
                 android:id="@+id/action_sort_max"
-                android:title="Monto Max"/>
+                android:title="@string/amount_max"/>
             <item
                 android:id="@+id/action_sort_min"
-                android:title="Monto Min"/>
+                android:title="@string/amount_min"/>
         </menu>
     </item>
 </menu>

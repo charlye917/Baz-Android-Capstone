@@ -9,8 +9,8 @@ fun availableMapper(list: List<AvailableBookResponse>): List<AvailableBookUI> =
     list.map {
         AvailableBookUI(
             fullName = it.book,
-            name = it.book!!.getBookName(),
-            typeMoney = it.book.getMoney(),
+            name = it.book.toString().getBookName(),
+            typeMoney = it.book.toString().getMoney(),
             imageUrl = it.generateUrlImage(),
             maxPrice = it.maximumPrice?.toDoubleOrNull() ?: 0.0,
             minPrice = it.minimumPrice?.toDoubleOrNull() ?: 0.0,

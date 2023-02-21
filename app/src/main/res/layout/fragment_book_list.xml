@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".presentation.ui.BookListFragment">
 
+    <include
+        android:id="@+id/item_search"
+        layout="@layout/item_search"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_books"
         android:layout_width="match_parent"
@@ -15,7 +23,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_search"
+        android:layout_marginTop="8dp"
         tools:itemCount="5"
         tools:listitem="@layout/item_book_list" />
 

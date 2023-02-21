@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.carteagal.baz_android.data.local.repository.CryptoLocalRepository
 import com.carteagal.baz_android.domain.model.AvailableBookUI
 import com.carteagal.baz_android.data.remote.network.Resources.Error
 import com.carteagal.baz_android.data.remote.network.Resources.Loading
@@ -142,6 +141,10 @@ class CryptoViewModel @Inject constructor(
             SORT_MAX -> { _availableBooks.value?.sortedByDescending { it.maxPrice } }
             SORT_MIN -> { _availableBooks.value?.sortedBy { it.minPrice } }
         }
-        _availableBooks.postValue(sortList!!)
+        _availableBooks.postValue(sortList ?: listOf())
     }
+
+    fun filterListBooks(book: String) = _availableBooks.value?.filter {
+        it.name?.uppercase()?.contains(book) == true
+    } ?: listOf()
 }

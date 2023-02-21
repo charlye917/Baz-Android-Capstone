@@ -1,6 +1,5 @@
 package com.carteagal.baz_android.utils
 
-import android.util.Log
 import java.util.*
 
 enum class NameCrypto(val value: String){

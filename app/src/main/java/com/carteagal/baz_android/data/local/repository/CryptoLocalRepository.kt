@@ -1,6 +1,5 @@
 package com.carteagal.baz_android.data.local.repository
 
-import android.util.Log
 import com.carteagal.baz_android.data.local.dao.AskBindDao
 import com.carteagal.baz_android.data.local.dao.AvailableBookDao
 import com.carteagal.baz_android.data.local.dao.TickerDao
@@ -14,7 +13,6 @@ import com.carteagal.baz_android.data.local.entities.tickerResponseToEntity
 import com.carteagal.baz_android.domain.model.AskBindUI
 import com.carteagal.baz_android.domain.model.AvailableBookUI
 import com.carteagal.baz_android.domain.model.TickerUI
-import com.carteagal.baz_android.utils.TypeAskBid
 import javax.inject.Inject
 
 class CryptoLocalRepository @Inject constructor(

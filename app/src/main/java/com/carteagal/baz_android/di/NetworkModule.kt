@@ -1,18 +1,13 @@
 package com.carteagal.baz_android.di
 
-import com.carteagal.baz_android.data.remote.dataSources.CryptoRemoteDataSourceImp
-import com.carteagal.baz_android.data.remote.dataSources.CryptoRemoteDataSources
 import com.carteagal.baz_android.data.remote.service.CryptoApiClient
-import com.carteagal.baz_android.utils.Constants
 import com.carteagal.baz_android.utils.Constants.BASE_URL
 import com.carteagal.baz_android.utils.Constants.TIME_OUT
 import com.carteagal.baz_android.utils.Constants.USER_AGENT
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
@@ -20,7 +15,6 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import java.util.logging.Level
 import javax.inject.Singleton
 
 @Module

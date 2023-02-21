@@ -10,6 +10,16 @@
     <string name="price_low">Precio más bajo: %s %s</string>
     <string name="bid">Oferta: %s %s</string>
     <string name="ask">Demanda: %s %s</string>
+    <string name="internet_conection_on">Se restauro la conexión a internet.</string>
+    <string name="internet_conection_off">En este momento no tienes conexion.</string>
+    <string name="retry_conection">Volver a intentar</string>
+    <string name="search">Buscar</string>
+    <string name="filter">Filtro</string>
+    <string name="order_by">Ordernar por:</string>
+    <string name="name_a_z">Nombre A - Z</string>
+    <string name="name_z_a">Nombre Z - A</string>
+    <string name="amount_max">Monto Max</string>
+    <string name="amount_min">Monto Min</string>
     <string-array name="transactions_list">
         <item>Oferta</item>
         <item>Demanda</item>

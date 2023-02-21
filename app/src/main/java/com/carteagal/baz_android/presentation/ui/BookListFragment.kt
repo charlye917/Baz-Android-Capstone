@@ -2,7 +2,6 @@ package com.carteagal.baz_android.presentation.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
@@ -12,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
@@ -23,7 +23,6 @@ import com.carteagal.baz_android.databinding.FragmentBookListBinding
 import com.carteagal.baz_android.presentation.adapter.BooksAdapter
 import com.carteagal.baz_android.presentation.viewmodel.CryptoViewModel
 import com.carteagal.baz_android.utils.AlertError
-import com.carteagal.baz_android.utils.TypeSorts
 import com.carteagal.baz_android.utils.TypeSorts.SORT_MAX
 import com.carteagal.baz_android.utils.TypeSorts.SORT_MIN
 import com.carteagal.baz_android.utils.TypeSorts.SORT_NAME_AZ
@@ -59,6 +58,7 @@ class BookListFragment : Fragment() {
         viewModelObserver()
 
         setUpMenu()
+        setUpView()
         setUpRecyclerView()
     }
 
@@ -88,7 +88,8 @@ class BookListFragment : Fragment() {
 
         CheckInternetConnectionTwo(requireActivity().application)
             .observe(viewLifecycleOwner){
-                if(!it) AlertError.showAlertError(requireContext()) { executeService() }
+                if(!it)
+                    AlertError.toastInternet(requireContext())
             }
     }
 
@@ -99,7 +100,7 @@ class BookListFragment : Fragment() {
             }
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when(menuItem.itemId){
-                    R.id.action_search -> {Log.d("__tag search", "dio click search")}
+                    R.id.action_search -> { setUpSearch() }
                     R.id.action_sort_name_az -> { cryptoViewModel.orderListBooks(SORT_NAME_AZ) }
                     R.id.action_sort_name_za -> { cryptoViewModel.orderListBooks(SORT_NAME_ZA)  }
                     R.id.action_sort_max -> { cryptoViewModel.orderListBooks(SORT_MAX) }
@@ -116,6 +117,27 @@ class BookListFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = booksAdapter
         }
+    }
+
+    private fun setUpSearch(){
+        binding.itemSearch.apply {
+            cardViewInfo.visibility = View.VISIBLE
+            txtSearch.doAfterTextChanged {
+                val bookSearch = it.toString().trim().uppercase()
+                if(bookSearch.isNotEmpty())
+                    booksAdapter.submitList(cryptoViewModel.filterListBooks(bookSearch))
+                else
+                    booksAdapter.submitList(cryptoViewModel.availableBooks.value)
+            }
+            btnClose.setOnClickListener {
+                txtSearch.text?.clear()
+                cardViewInfo.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun setUpView(){
+        binding.itemError.btnRetry.setOnClickListener { executeService() }
     }
 
     private fun changeFragmentOnClick(bookInfo: AvailableBookUI){

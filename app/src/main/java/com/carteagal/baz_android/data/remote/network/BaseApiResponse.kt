@@ -17,7 +17,10 @@ open class BaseApiResponse {
             if(response.success && response.result != null)
                 Success(response.result)
             else
-                Error(error = BaseError(message = response.error!!.message, code = response.error.code))
+                Error(error = BaseError(
+                    message = response.error?.message ?: context.getString(R.string.generic_subtitle_error),
+                    code = response.error?.code ?: "-1"
+                ))
         }catch (e: Exception){
             Error(error = BaseError(message = context.getString(R.string.generic_subtitle_error)))
         }

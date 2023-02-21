@@ -3,7 +3,6 @@ package com.carteagal.baz_android.data.local.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.carteagal.baz_android.data.remote.model.AvailableBookResponse
 import com.carteagal.baz_android.domain.model.AvailableBookUI
 
 @Entity(tableName = "available_book_table")

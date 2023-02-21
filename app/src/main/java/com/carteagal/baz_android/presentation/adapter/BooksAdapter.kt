@@ -1,6 +1,6 @@
 package com.carteagal.baz_android.presentation.adapter
 
-import android.util.Log
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -24,6 +24,7 @@ class BooksAdapter(
 
     inner class ViewHolder(private val binding: ItemBookListBinding) :
         RecyclerView.ViewHolder(binding.root){
+        @SuppressLint("SetTextI18n")
         fun bind(book: AvailableBookUI){
             binding.txtNameBook.text = book.name
             binding.txtMaxAmount.text = "${book.maxPrice?.toAmountFormat()} ${book.typeMoney}"
@@ -38,18 +39,11 @@ class BooksAdapter(
         override fun areItemsTheSame(
             oldItem: AvailableBookUI,
             newItem: AvailableBookUI
-        ): Boolean {
-            Log.d("__tag val 1", (oldItem == newItem).toString())
-            return oldItem.name == newItem.name
-        }
+        ) = oldItem.name == newItem.name
 
         override fun areContentsTheSame(
             oldItem: AvailableBookUI,
             newItem: AvailableBookUI
-        ): Boolean {
-            Log.d("__tag val 2", (oldItem == newItem).toString())
-            return oldItem == newItem
-        }
-
+        ) = oldItem == newItem
     }
 }

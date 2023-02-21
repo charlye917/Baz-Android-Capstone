@@ -14,7 +14,9 @@ import com.carteagal.baz_android.presentation.viewmodel.CryptoViewModel
 import com.carteagal.baz_android.utils.TypeAskBid.ASKS
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
+import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
+import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
@@ -22,9 +24,13 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.Mockito.mock
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
 
 @ExperimentalCoroutinesApi
 class CryptoViewModelTest {
@@ -112,7 +118,7 @@ class CryptoViewModelTest {
             getTickerUserCase,
             getTickerRxUseCase
         )
-        Dispatchers.setMain(Dispatchers.Unconfined)
+        Dispatchers.setMain(Dispatchers.IO)
     }
 
     @After

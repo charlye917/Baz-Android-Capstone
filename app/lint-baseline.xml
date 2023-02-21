@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 7.4.0" type="baseline" client="gradle" dependencies="false" name="AGP (7.4.0)" variant="all" version="7.4.0">
+
+    <issue
+        id="NotificationPermission"
+        message="When targeting Android 13 or higher, posting a permission requires holding the `POST_NOTIFICATIONS` permission (usage from com.bumptech.glide.request.target.NotificationTarget)">
+        <location
+            file="src/main/AndroidManifest.xml"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="        val view = layoutInflater.inflate(R.layout.message_internet_connection_off, null)"
+        errorLine2="                                                                                    ~~~~">
+        <location
+            file="src/main/java/com/carteagal/baz_android/utils/AlertError.kt"
+            line="11"
+            column="85"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.appcompat:appcompat than 1.6.0 is available: 1.6.1"
+        errorLine1="    coroutines_version = &quot;1.6.4&quot;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="67"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of io.reactivex.rxjava3:rxandroid than 3.0.0 is available: 3.0.2"
+        errorLine1="    implementation &quot;com.squareup.retrofit2:converter-gson:$retrofit_version&quot;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="86"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of io.reactivex.rxjava3:rxjava than 3.0.0 is available: 3.1.5"
+        errorLine1="    implementation &quot;com.squareup.retrofit2:adapter-rxjava3:$retrofit_version&quot;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="87"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.room:room-ktx than 2.4.3 is available: 2.5.0"
+        errorLine1="    //Glide"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="113"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of io.mockk:mockk than 1.12.2 is available: 1.13.2"
+        errorLine1="    implementation &quot;androidx.room:room-ktx:$room_version&quot;"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="118"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;momento&quot; is a common misspelling; did you mean &quot;memento&quot;?"
+        errorLine1="    &lt;string name=&quot;generic_subtitle_error&quot;>Por el momento, no se pudo completar la solicitud. Intenta más tarde.&lt;/string>"
+        errorLine2="                                                 ^">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="4"
+            column="50"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;momento&quot; is a common misspelling; did you mean &quot;memento&quot;?"
+        errorLine1="    &lt;string name=&quot;internet_conection_off&quot;>En este momento no tienes conexion.&lt;/string>"
+        errorLine2="                                                  ^">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="14"
+            column="51"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="This folder configuration (`v24`) is unnecessary; `minSdkVersion` is 26. Merge all the resources in this folder into `drawable`.">
+        <location
+            file="src/main/res/drawable-v24"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="This folder configuration (`v26`) is unnecessary; `minSdkVersion` is 26. Merge all the resources in this folder into `mipmap-anydpi`.">
+        <location
+            file="src/main/res/mipmap-anydpi-v26"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.purple_200` appears to be unused"
+        errorLine1="    &lt;color name=&quot;purple_200&quot;>#FFBB86FC&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="3"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.purple_500` appears to be unused"
+        errorLine1="    &lt;color name=&quot;purple_500&quot;>#FF6200EE&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="4"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.purple_700` appears to be unused"
+        errorLine1="    &lt;color name=&quot;purple_700&quot;>#FF3700B3&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="5"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.teal_200` appears to be unused"
+        errorLine1="    &lt;color name=&quot;teal_200&quot;>#FF03DAC5&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="6"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.teal_700` appears to be unused"
+        errorLine1="    &lt;color name=&quot;teal_700&quot;>#FF018786&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="7"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.gray` appears to be unused"
+        errorLine1="    &lt;color name=&quot;gray&quot;>#FFD9D9DC&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="10"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.primary_color_dark` appears to be unused"
+        errorLine1="    &lt;color name=&quot;primary_color_dark&quot;>#A75D5D&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="19"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.elevation` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;elevation&quot;>4dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="4"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.size_image_max` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;size_image_max&quot;>64dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="8"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_launcher_background` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_launcher_background.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_launcher_foreground` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable-v24/ic_launcher_foreground.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.mipmap.ic_launcher_round` appears to be unused"
+        errorLine1="&lt;adaptive-icon xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.icon_wifi` appears to be unused"
+        errorLine1="&lt;vector android:height=&quot;24dp&quot; android:tint=&quot;#000000&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/icon_wifi.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.internet_conection_on` appears to be unused"
+        errorLine1="    &lt;string name=&quot;internet_conection_on&quot;>Se restauro la conexión a internet.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="13"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MonochromeLauncherIcon"
+        message="The application adaptive icon is missing a monochrome tag"
+        errorLine1="&lt;adaptive-icon xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/mipmap-anydpi-v26/ic_launcher.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="IconDipSize"
+        message="The image `bitcoin.png` varies significantly in its density-independent (dip) size across the various density versions: drawable-ldpi/bitcoin.png: 683x683 dp (512x512 px), drawable-mdpi/bitcoin.png: 512x512 dp (512x512 px), drawable-xhdpi/bitcoin.png: 256x256 dp (512x512 px), drawable-xxhdpi/bitcoin.png: 171x171 dp (512x512 px), drawable-xxxhdpi/bitcoin.png: 128x128 dp (512x512 px)">
+        <location
+            file="src/main/res/drawable-xxxhdpi/bitcoin.png"/>
+        <location
+            file="src/main/res/drawable-xxhdpi/bitcoin.png"/>
+        <location
+            file="src/main/res/drawable-xhdpi/bitcoin.png"/>
+        <location
+            file="src/main/res/drawable-mdpi/bitcoin.png"/>
+        <location
+            file="src/main/res/drawable-ldpi/bitcoin.png"/>
+    </issue>
+
+    <issue
+        id="IconDipSize"
+        message="The image `problem_conection.png` varies significantly in its density-independent (dip) size across the various density versions: drawable-hdpi/problem_conection.png: 341x341 dp (512x512 px), drawable-ldpi/problem_conection.png: 683x683 dp (512x512 px), drawable-mdpi/problem_conection.png: 512x512 dp (512x512 px), drawable-xhdpi/problem_conection.png: 256x256 dp (512x512 px), drawable-xxhdpi/problem_conection.png: 171x171 dp (512x512 px), drawable-xxxhdpi/problem_conection.png: 128x128 dp (512x512 px)">
+        <location
+            file="src/main/res/drawable-xxxhdpi/problem_conection.png"/>
+        <location
+            file="src/main/res/drawable-xxhdpi/problem_conection.png"/>
+        <location
+            file="src/main/res/drawable-xhdpi/problem_conection.png"/>
+        <location
+            file="src/main/res/drawable-hdpi/problem_conection.png"/>
+        <location
+            file="src/main/res/drawable-mdpi/problem_conection.png"/>
+        <location
+            file="src/main/res/drawable-ldpi/problem_conection.png"/>
+    </issue>
+
+    <issue
+        id="IconDipSize"
+        message="The image `wallet.png` varies significantly in its density-independent (dip) size across the various density versions: drawable-hdpi/wallet.png: 341x341 dp (512x512 px), drawable-ldpi/wallet.png: 683x683 dp (512x512 px), drawable-mdpi/wallet.png: 512x512 dp (512x512 px), drawable-xhdpi/wallet.png: 256x256 dp (512x512 px), drawable-xxhdpi/wallet.png: 171x171 dp (512x512 px), drawable-xxxhdpi/wallet.png: 128x128 dp (512x512 px)">
+        <location
+            file="src/main/res/drawable-xxxhdpi/wallet.png"/>
+        <location
+            file="src/main/res/drawable-xxhdpi/wallet.png"/>
+        <location
+            file="src/main/res/drawable-xhdpi/wallet.png"/>
+        <location
+            file="src/main/res/drawable-hdpi/wallet.png"/>
+        <location
+            file="src/main/res/drawable-mdpi/wallet.png"/>
+        <location
+            file="src/main/res/drawable-ldpi/wallet.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicatesConfig"
+        message="The `bitcoin.png` icon has identical contents in the following configuration folders: drawable-ldpi, drawable-mdpi, drawable-xhdpi, drawable-xxhdpi, drawable-xxxhdpi">
+        <location
+            file="src/main/res/drawable-xxxhdpi/bitcoin.png"/>
+        <location
+            file="src/main/res/drawable-xxhdpi/bitcoin.png"/>
+        <location
+            file="src/main/res/drawable-xhdpi/bitcoin.png"/>
+        <location
+            file="src/main/res/drawable-mdpi/bitcoin.png"/>
+        <location
+            file="src/main/res/drawable-ldpi/bitcoin.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicatesConfig"
+        message="The `problem_conection.png` icon has identical contents in the following configuration folders: drawable-hdpi, drawable-ldpi, drawable-mdpi, drawable-xhdpi, drawable-xxhdpi, drawable-xxxhdpi">
+        <location
+            file="src/main/res/drawable-xxxhdpi/problem_conection.png"/>
+        <location
+            file="src/main/res/drawable-xxhdpi/problem_conection.png"/>
+        <location
+            file="src/main/res/drawable-xhdpi/problem_conection.png"/>
+        <location
+            file="src/main/res/drawable-mdpi/problem_conection.png"/>
+        <location
+            file="src/main/res/drawable-ldpi/problem_conection.png"/>
+        <location
+            file="src/main/res/drawable-hdpi/problem_conection.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicatesConfig"
+        message="The `wallet.png` icon has identical contents in the following configuration folders: drawable-hdpi, drawable-ldpi, drawable-mdpi, drawable-xhdpi, drawable-xxhdpi, drawable-xxxhdpi">
+        <location
+            file="src/main/res/drawable-xxxhdpi/wallet.png"/>
+        <location
+            file="src/main/res/drawable-xxhdpi/wallet.png"/>
+        <location
+            file="src/main/res/drawable-xhdpi/wallet.png"/>
+        <location
+            file="src/main/res/drawable-mdpi/wallet.png"/>
+        <location
+            file="src/main/res/drawable-ldpi/wallet.png"/>
+        <location
+            file="src/main/res/drawable-hdpi/wallet.png"/>
+    </issue>
+
+    <issue
+        id="IconDensities"
+        message="Missing the following drawables in `drawable-hdpi`: bitcoin.png (found in drawable-mdpi, drawable-xhdpi, drawable-xxhdpi, drawable-xxxhdpi)">
+        <location
+            file="src/main/res/drawable-hdpi"/>
+    </issue>
+
+</issues>

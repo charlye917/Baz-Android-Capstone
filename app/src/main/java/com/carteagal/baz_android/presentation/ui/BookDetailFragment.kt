@@ -61,6 +61,8 @@ class BookDetailFragment : Fragment() {
 
         setConfigTabLayout()
         setUpRecyclerView()
+
+        binding.itemError.btnRetry.setOnClickListener { executeService() }
     }
 
     private fun executeService(){
@@ -88,7 +90,7 @@ class BookDetailFragment : Fragment() {
             }
             CheckInternetConnectionTwo(requireActivity().application)
                 .observe(viewLifecycleOwner){
-                    if(!it) AlertError.showAlertError(requireContext()){executeService()}
+                    if(!it) AlertError.toastInternet(requireContext())
                 }
         }
     }
@@ -120,7 +122,7 @@ class BookDetailFragment : Fragment() {
             context.resources.getStringArray(R.array.transactions_list).map { addTab(newTab().setText(it)) }
             addOnTabSelectedListener(object : OnTabSelectedListener{
                 override fun onTabSelected(tab: TabLayout.Tab?) {
-                    when(tab!!.position){
+                    when(tab?.position){
                         0 -> { askBindAdapter.submitList(bids) }
                         1 -> { askBindAdapter.submitList(asks) }
                     }

@@ -1,7 +1,5 @@
 package com.carteagal.baz_android.domain.useCase
 
-import android.content.Context
-import com.carteagal.baz_android.R
 import com.carteagal.baz_android.data.local.repository.CryptoLocalRepository
 import com.carteagal.baz_android.data.remote.model.base.BaseError
 import com.carteagal.baz_android.domain.model.AvailableBookUI
@@ -11,7 +9,6 @@ import com.carteagal.baz_android.data.remote.network.Resources.Loading
 import com.carteagal.baz_android.data.remote.network.Resources.Success
 import com.carteagal.baz_android.data.remote.repository.AvailableBooksRepositoryNetwork
 import com.carteagal.baz_android.domain.mapper.availableMapper
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

@@ -1,8 +1,5 @@
 package com.carteagal.baz_android.domain.useCase
 
-import android.content.Context
-import android.util.Log
-import com.carteagal.baz_android.R
 import com.carteagal.baz_android.data.local.repository.CryptoLocalRepository
 import com.carteagal.baz_android.data.remote.model.base.BaseError
 import com.carteagal.baz_android.data.remote.network.Resources
@@ -12,7 +9,6 @@ import com.carteagal.baz_android.data.remote.network.Resources.Success
 import com.carteagal.baz_android.data.remote.repository.TickerRepositoryNetwork
 import com.carteagal.baz_android.domain.mapper.tickerMapper
 import com.carteagal.baz_android.domain.model.TickerUI
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -34,7 +30,6 @@ class GetTickerUserCase @Inject constructor(
                         localRepository.insertTicker(newTicker)
                         emit(Success(newTicker))
                     }
-
                     else -> {
                         val error = state as Error
                         if(localData.fullName != null)
