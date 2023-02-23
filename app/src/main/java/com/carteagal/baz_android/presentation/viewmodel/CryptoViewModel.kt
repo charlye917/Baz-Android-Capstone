@@ -1,19 +1,17 @@
 package com.carteagal.baz_android.presentation.viewmodel
 
-import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.carteagal.baz_android.domain.model.AvailableBookUI
 import com.carteagal.baz_android.data.remote.network.Resources.Error
 import com.carteagal.baz_android.data.remote.network.Resources.Loading
 import com.carteagal.baz_android.data.remote.network.Resources.Success
 import com.carteagal.baz_android.domain.model.AskBindUI
+import com.carteagal.baz_android.domain.model.AvailableBookUI
 import com.carteagal.baz_android.domain.model.TickerUI
-import com.carteagal.baz_android.domain.useCase.GetAvailableBooksUseCase
 import com.carteagal.baz_android.domain.useCase.GetAskBindUseCase
+import com.carteagal.baz_android.domain.useCase.GetAvailableBooksUseCase
 import com.carteagal.baz_android.domain.useCase.GetTickerRxUseCase
 import com.carteagal.baz_android.domain.useCase.GetTickerUserCase
 import com.carteagal.baz_android.utils.TypeSorts
@@ -22,11 +20,7 @@ import com.carteagal.baz_android.utils.TypeSorts.SORT_MIN
 import com.carteagal.baz_android.utils.TypeSorts.SORT_NAME_AZ
 import com.carteagal.baz_android.utils.TypeSorts.SORT_NAME_ZA
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.launch
-import java.util.concurrent.Flow
-import java.util.concurrent.Flow.Subscriber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,7 +29,10 @@ class CryptoViewModel @Inject constructor(
     private val getAskBindUseCase: GetAskBindUseCase,
     private val getTickerUserCase: GetTickerUserCase,
     private val getTickerRxUseCase: GetTickerRxUseCase
+    //private val app: Application
 ): ViewModel(){
+
+    //private val checkInternetConnection = CheckInternetConnectionTwo(app).value ?: true
 
     private val _loading = MutableLiveData(true)
     val loading: LiveData<Boolean> get() = _loading
@@ -55,8 +52,8 @@ class CryptoViewModel @Inject constructor(
     fun getAvailableBooks(){
         viewModelScope.launch {
             _loading.postValue(true)
-            getAvailableBooksUseCase().collect{
-                when(it){
+            getAvailableBooksUseCase().collect {
+                when (it) {
                     is Loading -> {
                         _loading.postValue(true)
                     }
@@ -77,8 +74,8 @@ class CryptoViewModel @Inject constructor(
     fun getTicker(book: String){
         viewModelScope.launch {
             _loading.postValue(true)
-            getTickerUserCase(book).collect{
-                when(it){
+            getTickerUserCase(book).collect {
+                when (it) {
                     is Loading -> {
                         _loading.postValue(true)
                     }
@@ -99,8 +96,8 @@ class CryptoViewModel @Inject constructor(
     fun getAskBind(book: String){
         viewModelScope.launch {
             _loading.postValue(true)
-            getAskBindUseCase(book).collect{
-                when(it){
+            getAskBindUseCase(book).collect {
+                when (it) {
                     is Loading -> {
                         _loading.postValue(true)
                     }
@@ -118,11 +115,29 @@ class CryptoViewModel @Inject constructor(
         }
     }
 
-    @SuppressLint("CheckResult")
     fun getTickerRx(book: String){
-        _loading.postValue(true)
-        getTickerRxUseCase(book)
-            .subscribeOn(Schedulers.io())
+        viewModelScope.launch {
+            _loading.postValue(true)
+            getTickerRxUseCase(book).let {
+                when (it) {
+                    is Loading -> {
+                        _loading.postValue(true)
+                    }
+                    is Success -> {
+                        _isError.postValue(false)
+                        _loading.postValue(false)
+                        _ticker.postValue(it.data)
+                    }
+                    is Error -> {
+                        _loading.postValue(false)
+                        _isError.postValue(true)
+                    }
+                }
+            }
+        }
+
+
+            /*.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 _loading.postValue(false)
@@ -131,7 +146,7 @@ class CryptoViewModel @Inject constructor(
             }, {
                 _loading.postValue(false)
                 _loading.postValue(true)
-            })
+            })*/
     }
 
     fun orderListBooks(sort: TypeSorts){

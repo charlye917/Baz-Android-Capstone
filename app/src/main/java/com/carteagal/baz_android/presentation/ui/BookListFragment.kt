@@ -2,7 +2,6 @@ package com.carteagal.baz_android.presentation.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -12,14 +11,15 @@ import android.view.ViewGroup
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.carteagal.baz_android.R
 import com.carteagal.baz_android.data.remote.network.CheckInternetConnectionTwo
-import com.carteagal.baz_android.domain.model.AvailableBookUI
 import com.carteagal.baz_android.databinding.FragmentBookListBinding
+import com.carteagal.baz_android.domain.model.AvailableBookUI
 import com.carteagal.baz_android.presentation.adapter.BooksAdapter
 import com.carteagal.baz_android.presentation.viewmodel.CryptoViewModel
 import com.carteagal.baz_android.utils.AlertError
@@ -84,12 +84,12 @@ class BookListFragment : Fragment() {
             isError.observe(viewLifecycleOwner){
                 binding.itemError.itemError.visibility = if(it)  View.VISIBLE else View.GONE
             }
+
         }
 
         CheckInternetConnectionTwo(requireActivity().application)
             .observe(viewLifecycleOwner){
-                if(!it)
-                    AlertError.toastInternet(requireContext())
+                if(!it) AlertError.toastInternet(requireContext())
             }
     }
 
