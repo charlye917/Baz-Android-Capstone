@@ -17,7 +17,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.carteagal.baz_android.R
-import com.carteagal.baz_android.data.remote.network.CheckInternetConnectionTwo
 import com.carteagal.baz_android.databinding.FragmentBookListBinding
 import com.carteagal.baz_android.domain.model.AvailableBookUI
 import com.carteagal.baz_android.presentation.adapter.BooksAdapter
@@ -39,8 +38,6 @@ class BookListFragment : Fragment() {
     private val cryptoViewModel: CryptoViewModel by activityViewModels()
 
     private val list = arrayListOf<AvailableBookUI>()
-
-    private lateinit var checkNetworkConnection: CheckInternetConnectionTwo
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -85,12 +82,10 @@ class BookListFragment : Fragment() {
                 binding.itemError.itemError.visibility = if(it)  View.VISIBLE else View.GONE
             }
 
-        }
-
-        CheckInternetConnectionTwo(requireActivity().application)
-            .observe(viewLifecycleOwner){
+            isInternetConnection.observe(viewLifecycleOwner){
                 if(!it) AlertError.toastInternet(requireContext())
             }
+        }
     }
 
     private fun setUpMenu(){

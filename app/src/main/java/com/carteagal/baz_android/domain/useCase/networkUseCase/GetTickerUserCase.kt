@@ -1,4 +1,4 @@
-package com.carteagal.baz_android.domain.useCase
+package com.carteagal.baz_android.domain.useCase.networkUseCase
 
 import com.carteagal.baz_android.data.local.repository.CryptoLocalRepository
 import com.carteagal.baz_android.data.remote.model.base.BaseError
@@ -16,26 +16,17 @@ import javax.inject.Inject
 
 class GetTickerUserCase @Inject constructor(
     private val tickerRepositoryNetwork: TickerRepositoryNetwork,
-    private val localRepository: CryptoLocalRepository
     ) {
     suspend operator fun invoke(book: String): Flow<Resources<TickerUI>> = flow {
-        val localData = localRepository.getTickerUI(book)
         tickerRepositoryNetwork.getTickerInfo(book)
             .catch { e -> e.printStackTrace() }
             .collect{ state ->
                 when(state){
                     is Loading -> { emit(Loading) }
-                    is Success -> {
-                        val newTicker = tickerMapper(state.data)
-                        localRepository.insertTicker(newTicker)
-                        emit(Success(newTicker))
-                    }
+                    is Success -> { emit(Success(tickerMapper(state.data))) }
                     else -> {
                         val error = state as Error
-                        if(localData.fullName != null)
-                            emit(Success(data = localRepository.getTickerUI(book)))
-                        else
-                            emit(Error(BaseError(message = error.error.message, code = error.error.code)))
+                        emit(Error(BaseError(message = error.error.message, code = error.error.code)))
                     }
                 }
             }

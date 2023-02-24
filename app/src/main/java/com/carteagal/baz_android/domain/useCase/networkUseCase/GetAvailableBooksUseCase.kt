@@ -1,4 +1,4 @@
-package com.carteagal.baz_android.domain.useCase
+package com.carteagal.baz_android.domain.useCase.networkUseCase
 
 import com.carteagal.baz_android.data.local.repository.CryptoLocalRepository
 import com.carteagal.baz_android.data.remote.model.base.BaseError
@@ -17,27 +17,22 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class GetAvailableBooksUseCase @Inject constructor(
-    private val availableBooksRepositoryNetwork: AvailableBooksRepositoryNetwork,
-    private val localRepository: CryptoLocalRepository
+    private val availableBooksRepositoryNetwork: AvailableBooksRepositoryNetwork
 ) {
     suspend operator fun invoke(): Flow<Resources<List<AvailableBookUI>>> = flow {
         availableBooksRepositoryNetwork.getAllBooks()
             .catch {e -> e.printStackTrace() }
             .collect{ state ->
                 when(state){
-                    is Loading -> { emit(Loading) }
+                    is Loading -> {
+                        emit(Loading)
+                    }
                     is Success -> {
-                        val newDataUI = availableMapper(state.data)
-                        localRepository.insertAllBooks(newDataUI)
-                        emit(Success(data = newDataUI))
+                        emit(Success(data = availableMapper(state.data)))
                     }
                     else -> {
                         val error = state as Error
-                        val localData = localRepository.getAllBooks()
-                        if(localData.isNotEmpty())
-                            emit(Success(data = localData))
-                        else
-                            emit(Error(BaseError(message = error.error.message, code = error.error.code)))
+                        emit(Error(BaseError(message = error.error.message, code = error.error.code)))
                     }
                 }
             }

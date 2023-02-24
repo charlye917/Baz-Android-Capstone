@@ -32,8 +32,4 @@ object LocalModule {
     @Singleton
     @Provides
     fun provideTickerDao(database: CryptoDataBase) = database.getTickerDao()
-
-    @Singleton
-    @Provides
-    fun provideTickerRxDao(database: CryptoDataBase) = database.getTickerRxDao()
 }

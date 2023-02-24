@@ -3,7 +3,6 @@ package com.carteagal.baz_android.data.local.repository
 import com.carteagal.baz_android.data.local.dao.AskBindDao
 import com.carteagal.baz_android.data.local.dao.AvailableBookDao
 import com.carteagal.baz_android.data.local.dao.TickerDao
-import com.carteagal.baz_android.data.local.dao.TickerRxDao
 import com.carteagal.baz_android.data.local.entities.askBindEntityToUI
 import com.carteagal.baz_android.data.local.entities.askBindUItoEntity
 import com.carteagal.baz_android.data.local.entities.availableEntitysToUI
@@ -18,8 +17,7 @@ import javax.inject.Inject
 class CryptoLocalRepository @Inject constructor(
     private val availableBookDao: AvailableBookDao,
     private val askBindDao: AskBindDao,
-    private val tickerDao: TickerDao,
-    private val tickerRxDao: TickerRxDao
+    private val tickerDao: TickerDao
 ){
     suspend fun insertAllBooks(listBookUI: List<AvailableBookUI>){
         availableBookDao.deleteAllBooks()
@@ -49,14 +47,5 @@ class CryptoLocalRepository @Inject constructor(
     suspend fun getTickerUI(book: String): TickerUI =
         tickerDao
             .getTicker(book)
-            .tickerEntityToResponse()
-
-    fun insertTickerRx(tickerUI: TickerUI){
-        tickerUI.fullName?.let { tickerRxDao.deleteTickerRx(it) }
-        tickerRxDao.insertTickerRx(tickerUI.tickerResponseToEntity())
-    }
-    fun getTickerRxUI(book: String): TickerUI =
-        tickerRxDao
-            .getTickerRx(book)
             .tickerEntityToResponse()
 }

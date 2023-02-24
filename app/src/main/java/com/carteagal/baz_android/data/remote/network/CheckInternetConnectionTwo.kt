@@ -1,37 +1,22 @@
 package com.carteagal.baz_android.data.remote.network
 
-import android.app.Application
-import android.content.Context.CONNECTIVITY_SERVICE
+import android.content.Context
 import android.net.ConnectivityManager
-import android.net.ConnectivityManager.NetworkCallback
-import android.net.Network
-import android.net.NetworkRequest
-import androidx.lifecycle.LiveData
+import android.net.NetworkCapabilities
 
-class CheckInternetConnectionTwo(private val conecctivityManager: ConnectivityManager) : LiveData<Boolean>() {
+object CheckInternetConnection {
+    fun hasInternetConnection(context: Context?): Boolean{
+        if(context == null) return false
 
-    constructor(application: Application) : this(application.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager)
+        val connectionManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = connectionManager.activeNetwork ?: return false
+        val networkCapabilities = connectionManager.getNetworkCapabilities(activeNetwork) ?: return false
 
-    private val networkCallback = object : NetworkCallback(){
-        override fun onAvailable(network: Network) {
-            super.onAvailable(network)
-            postValue(true)
+        return when{
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+            else -> false
         }
-
-        override fun onLost(network: Network) {
-            super.onLost(network)
-            postValue(false)
-        }
-    }
-
-    override fun onActive() {
-        super.onActive()
-        val builder = NetworkRequest.Builder()
-        conecctivityManager.registerNetworkCallback(builder.build(), networkCallback)
-    }
-
-    override fun onInactive() {
-        super.onInactive()
-        conecctivityManager.unregisterNetworkCallback(networkCallback)
     }
 }

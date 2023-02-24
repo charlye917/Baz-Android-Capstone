@@ -8,6 +8,7 @@ import com.carteagal.baz_android.data.remote.model.base.BaseError
 import com.carteagal.baz_android.data.remote.network.Resources
 import com.carteagal.baz_android.data.remote.repository.AvailableBooksRepositoryNetwork
 import com.carteagal.baz_android.domain.mapper.availableMapper
+import com.carteagal.baz_android.domain.useCase.networkUseCase.GetAvailableBooksUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify

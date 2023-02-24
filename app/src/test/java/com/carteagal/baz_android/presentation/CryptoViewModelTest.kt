@@ -6,10 +6,10 @@ import com.carteagal.baz_android.data.remote.network.Resources
 import com.carteagal.baz_android.domain.model.AskBindUI
 import com.carteagal.baz_android.domain.model.AvailableBookUI
 import com.carteagal.baz_android.domain.model.TickerUI
-import com.carteagal.baz_android.domain.useCase.GetAskBindUseCase
-import com.carteagal.baz_android.domain.useCase.GetAvailableBooksUseCase
-import com.carteagal.baz_android.domain.useCase.GetTickerRxUseCase
-import com.carteagal.baz_android.domain.useCase.GetTickerUserCase
+import com.carteagal.baz_android.domain.useCase.networkUseCase.GetAskBindUseCase
+import com.carteagal.baz_android.domain.useCase.networkUseCase.GetAvailableBooksUseCase
+import com.carteagal.baz_android.domain.useCase.networkUseCase.GetTickerRxUseCase
+import com.carteagal.baz_android.domain.useCase.networkUseCase.GetTickerUserCase
 import com.carteagal.baz_android.presentation.viewmodel.CryptoViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery

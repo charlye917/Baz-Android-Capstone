@@ -15,7 +15,6 @@ class AskBindsAdapter(): ListAdapter<AskBindUI, AskBindsAdapter.ViewHolder>(AskB
         ItemDetailsBookBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bind(getItem(position))
 

@@ -9,7 +9,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.carteagal.baz_android.R
-import com.carteagal.baz_android.data.remote.network.CheckInternetConnectionTwo
 import com.carteagal.baz_android.databinding.FragmentBookDetailBinding
 import com.carteagal.baz_android.domain.model.AskBindUI
 import com.carteagal.baz_android.domain.model.TickerUI
@@ -66,9 +65,7 @@ class BookDetailFragment : Fragment() {
     }
 
     private fun executeService(){
-        //cryptoViewModel.getTickerRx(bookName)
-        cryptoViewModel.getTicker(bookName)
-        cryptoViewModel.getAskBind(bookName)
+        cryptoViewModel.getBookDetailData(bookName)
     }
 
     private fun viewModelObserver(){
@@ -88,10 +85,9 @@ class BookDetailFragment : Fragment() {
                 binding.itemError.itemError.visibility = if(it) View.VISIBLE else View.GONE
                 binding.constraintInfo.visibility = if(it) View.GONE else View.VISIBLE
             }
-            CheckInternetConnectionTwo(requireActivity().application)
-                .observe(viewLifecycleOwner){
-                    if(!it) AlertError.toastInternet(requireContext())
-                }
+            isInternetConnection.observe(viewLifecycleOwner){
+                if(!it) AlertError.toastInternet(requireContext())
+            }
         }
     }
 

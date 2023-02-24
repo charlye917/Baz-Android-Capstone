@@ -1,4 +1,4 @@
-package com.carteagal.baz_android.domain.useCase
+package com.carteagal.baz_android.domain.useCase.networkUseCase
 
 import com.carteagal.baz_android.data.local.repository.CryptoLocalRepository
 import com.carteagal.baz_android.data.remote.model.base.BaseError
@@ -19,35 +19,27 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class GetAskBindUseCase @Inject constructor(
-    private val orderBooksRepositoryNetwork: OrderBooksRepositoryNetwork,
-    private val localRepository: CryptoLocalRepository
+    private val orderBooksRepositoryNetwork: OrderBooksRepositoryNetwork
 ) {
 
     suspend operator fun invoke(book: String): Flow<Resources<List<AskBindUI>>> = flow {
-        val localData = localRepository.getAllAskBind(book)
         orderBooksRepositoryNetwork.getOrderBook(book)
             .catch { e -> e.printStackTrace() }
             .collect{ state ->
                 when(state){
                     is Loading -> { emit(Loading) }
                     is Success -> {
-                        val askListUI = askBindMapper(state.data.asks, ASKS)
-                        val bindListUI = askBindMapper(state.data.bids, BIDS)
+                        val data = state.data
                         val newDataUI = mutableListOf<AskBindUI>()
-                        newDataUI += askListUI
-                        newDataUI += bindListUI
-                        localRepository.insertAskBind(newDataUI, book)
+                        newDataUI += askBindMapper(data.asks, ASKS)
+                        newDataUI += askBindMapper(data.bids, BIDS)
                         emit(Success(data = newDataUI))
                     }
                     else -> {
                         val error = state as Error
-                        if(localData.isNotEmpty())
-                            emit(Success(data = localData))
-                        else
-                            emit(Error(BaseError(message = error.error.message, code = error.error.code)))
+                        emit(Error(BaseError(message = error.error.message, code = error.error.code)))
                     }
                 }
             }
     }.flowOn(Dispatchers.IO)
-
 }
