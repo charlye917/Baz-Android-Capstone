@@ -67,11 +67,7 @@ class BookListFragment : Fragment() {
     private fun viewModelObserver(){
         cryptoViewModel.apply {
             availableBooks.observe(viewLifecycleOwner) {
-                list.clear()
-                booksAdapter.notifyDataSetChanged()
-                list.addAll(it)
-                booksAdapter.notifyItemRangeInserted(0, list.size)
-                booksAdapter.submitList(list)
+                configurationListAdapter(it)
             }
 
             loading.observe(viewLifecycleOwner){
@@ -120,14 +116,24 @@ class BookListFragment : Fragment() {
             txtSearch.doAfterTextChanged {
                 val bookSearch = it.toString().trim().uppercase()
                 if(bookSearch.isNotEmpty())
-                    booksAdapter.submitList(cryptoViewModel.filterListBooks(bookSearch))
+                    configurationListAdapter(cryptoViewModel.filterListBooks(bookSearch))
                 else
-                    booksAdapter.submitList(cryptoViewModel.availableBooks.value)
+                    configurationListAdapter(cryptoViewModel.availableBooks.value ?: arrayListOf())
             }
             btnClose.setOnClickListener {
                 txtSearch.text?.clear()
                 cardViewInfo.visibility = View.GONE
             }
+        }
+    }
+
+    private fun configurationListAdapter(listBook: List<AvailableBookUI>){
+        booksAdapter.apply {
+            list.clear()
+            notifyDataSetChanged()
+            list.addAll(listBook)
+            notifyItemRangeInserted(0, list.size)
+            submitList(list)
         }
     }
 

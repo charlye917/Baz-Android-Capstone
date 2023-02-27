@@ -37,10 +37,7 @@ internal class GetAvailableBooksUseCaseTest{
     @Before
     fun onBefore(){
         MockKAnnotations.init(this)
-        getAvailableBooksUseCase = GetAvailableBooksUseCase(
-            availableBooksRepositoryNetwork,
-            localRepository
-        )
+        getAvailableBooksUseCase = GetAvailableBooksUseCase(availableBooksRepositoryNetwork)
     }
 
     @Test
