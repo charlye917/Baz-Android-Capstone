@@ -105,4 +105,4 @@ androidTestImplementation "androidx.test.ext:junit:$junit_version"
 androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
 androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
 androidTestImplementation "androidx.test.espresso:espresso-accessibility:$espresso_version"
-`
+
