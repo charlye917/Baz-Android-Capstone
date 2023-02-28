@@ -64,7 +64,7 @@ class CryptoViewModelTest {
     @get:Rule
     val rule: InstantTaskExecutorRule = InstantTaskExecutorRule()
 
-    val bookName = "aave_usd"
+    private val bookName = "aave_usd"
 
     private var listAvailableBookUIMock = listOf(mock<AvailableBookUI>())
 

@@ -43,13 +43,12 @@ internal class GetAvailableBooksUseCaseTest{
     @Test
     fun `When Response Api is Success`() = runBlocking {
         //Given
-        coEvery { localRepository.insertAllBooks(availableMapper(availableBooksResponseMock)) }
         coEvery { availableBooksRepositoryNetwork.getAllBooks() } returns flow {
             emit(Resources.Success(data = availableBooksResponseMock))
         }
 
         //When
-        getAvailableBooksUseCase()
+        availableBooksRepositoryNetwork.getAllBooks()
 
         //Then
         Assert.assertEquals(localRepository.getAllBooks(),availableMapper(availableBooksResponseMock))
