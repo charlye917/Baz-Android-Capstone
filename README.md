@@ -29,7 +29,7 @@ The purpose of this project to illustrate the usage of MVVM architecture design 
 
 ## Libraries
 
-´´´
+```
 lifecycle_version = "2.5.1"
 retrofit_version = "2.9.0"
 gson_version = "2.10.1"
@@ -45,9 +45,9 @@ espresso_version = "3.5.1"
 junit_version = "1.1.3"
 mockk_version = "1.12.2"
 coroutines_version = "1.6.4"
-´´´
+```
 
-´´´
+
 // Material Design
 implementation 'com.google.android.material:material:1.8.0'
 implementation "com.google.android.material:material:$materialDesigne_version"
@@ -105,6 +105,7 @@ androidTestImplementation "androidx.test.ext:junit:$junit_version"
 androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
 androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
 androidTestImplementation "androidx.test.espresso:espresso-accessibility:$espresso_version"
+
  
 
 
