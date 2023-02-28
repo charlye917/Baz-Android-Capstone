@@ -47,7 +47,7 @@ mockk_version = "1.12.2"
 coroutines_version = "1.6.4"
 ```
 
-
+```
 // Material Design
 implementation 'com.google.android.material:material:1.8.0'
 implementation "com.google.android.material:material:$materialDesigne_version"
