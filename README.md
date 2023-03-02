@@ -33,9 +33,12 @@ It was decided to use the clean architecture pattern due to its focus on separat
 2. Domain layer: This layer contains the business logic of the application. Contains business rules and entity classes
 3. Data layer: This layer is responsible for obtaining and storing the application data, including access to the local database and remote APIs
 
-For the consumption of services, it was decided to use the retrofit library due to its advantages compared to other libraries, among which are its easy integration, the use of its annotations to facilitate the construction of requests and the interpretation of responses, ease of data conversion with the help of the Gson library, its compatibility with OkHttp and its ease of use.
-To facilitate data collection through the use of asynchronous programming, it was decided to use LiveData to update the user interface safely and in real time, since in addition to these two advantages it offers us, it helps us by combining it with the data cycle. lifetime of the activity or fragment, which means that the UI update can only be guaranteed when the activity or fragment is in active state
+For the consume of services, it was decided to use the retrofit library due to its advantages compared to other libraries, among which are its easy integration, the use of its annotations to facilitate the construction of requests and the interpretation of responses, ease of data conversion with the help of the Gson library, its compatibility with OkHttp and its ease of use.
+
+To facilitate data collection through the use of asynchronous programming, it was decided to use LiveData to update the user interface safely and in real time, since in addition to these two advantages it offers us, it helps us by combining it with the data cycle. lifetime of the activity or fragment, which means that the UI update can only be guaranteed when the activity or fragment is in active state.
+
 For obtaining and issuing data, it was decided to use Flow since it allows us to transform and process the data asynchronously.
+
 And as an extra example of its use, it was decided to use RxJava instead of flow for the consumption of one of the services, to see the difference between using this library compared to others
 
 ## Libraries
