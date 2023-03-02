@@ -1,5 +1,27 @@
 <resources>
-    <string name="app_name">Baz-Android-Capstone</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Etereo</string>
+    <string name="internet_error">Problemas al conectar \n con el servicio</string>
+    <string name="generic_subtitle_error">Por el momento, no se pudo completar la solicitud. Intenta más tarde.</string>
+    <string name="last_update">Última actualizacion: %s</string>
+    <string name="price_product">Precio</string>
+    <string name="amount">Monto</string>
+    <string name="price">Precio: %s %s</string>
+    <string name="price_hight">Precio más alto: %s %s</string>
+    <string name="price_low">Precio más bajo: %s %s</string>
+    <string name="bid">Oferta: %s %s</string>
+    <string name="ask">Demanda: %s %s</string>
+    <string name="internet_conection_on">Se restauro la conexión a internet.</string>
+    <string name="internet_conection_off">En este momento no tienes conexion.</string>
+    <string name="retry_conection">Volver a intentar</string>
+    <string name="search">Buscar</string>
+    <string name="filter">Filtro</string>
+    <string name="order_by">Ordernar por:</string>
+    <string name="name_a_z">Nombre A - Z</string>
+    <string name="name_z_a">Nombre Z - A</string>
+    <string name="amount_max">Monto Max</string>
+    <string name="amount_min">Monto Min</string>
+    <string-array name="transactions_list">
+        <item>Oferta</item>
+        <item>Demanda</item>
+    </string-array>
 </resources>
