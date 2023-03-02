@@ -1,6 +1,9 @@
 # Cryptocurrency Project
 
-<video src='final_app.mp4' width=200/> 
+<video width="640" height="480" controls>
+  <source src="./final_app.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ## Introducción
 A sample app that display a _"Order books"_, An order book is a record of all the buy and sell orders that have been placed for a particular cryptocurrency pair on a cryptocurrency exchange market.
