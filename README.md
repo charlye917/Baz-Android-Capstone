@@ -1,99 +1,129 @@
-# Reto de Criptomonedas
+# Cryptocurrency Project
+
+<video width="640" height="480" controls>
+  <source src="./final_app.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ## Introducción
-¡Gracias por participar en el programa de aprendizaje de Android!
-Aquí encontraras las instrucciones del desafío.
+A sample app that display a _"Order books"_, An order book is a record of all the buy and sell orders that have been placed for a particular cryptocurrency pair on a cryptocurrency exchange market.
+The order book is typically divided into two sections: one for buy orders and one for sell orders. The orders are recorded in chronological order, from the oldest to the newest. Each order indicates the price and quantity of the cryptocurrency that the buyer or seller wants to buy or sell.
+The order book is important because it provides traders with information about the liquidity of the market, as well as the current prices and buying and selling trends for the cryptocurrency in question. Traders can use this information to make informed decisions about when to buy or sell a cryptocurrency and at what price."
 
-## El Desafío
-El propósito de este desafío es que puedas demostrar tus habilidades de desarrollo en Android. Esta es tu oportunidad para demostrar todo lo que has aprendido durante el curso.
-En este desafío, construirás una aplicación de Android completa por tu propia cuenta. No queremos limitarte, por eso, mejor solicitamos que construyas una aplicación desde cero.
-Esperamos que encuentres este ejercicio desafiante y llamativo.
-El propósito es construir una aplicación que use la API pública de Bitso, la cuál debe incluir:
+## Proyect Structure
+The purpose of this project to illustrate the usage of MVVM architecture design pattern that follow the best practices of Clean Architecture using the following technology stack.
 
-- Una pantalla que muestre todas las monedas disponibles
-- Una pantalla de detalle para cada moneda
-- Persistencia local
+1. Clean Architecture
+2. MVVM
+3. Hilt (Dependency Injection)
+4. Live Data, Flow
+5. Room Database
+6. Retrofit
+7. Okhttp3
+8. RxJava3
+9. Unit Testing (Espresso), Mockito
+10. AndroidX
+11. Glide
+12. JetPack Libraries
+13. View Binding
+14. Coroutines
+15. Navigation Component
 
-## Requerimientos
+<img src="clean-architecture-own-layers.png" alt="drawing" width="600"/>
+<img src="proyect_architecture.png" alt="drawing" width="600"/>
 
-Estos son los requerimientos principales que evaluaremos:
+It was decided to use the clean architecture pattern due to its focus on separating the responsibilities of the code in different capabilities and levels of abstraction, with the aim of creating scalable, maintainable and flexible systems, the way to implement it for this project is as follows:
 
-- Hacer uso de todo lo que has aprendido durante el curso:
-    - Mejores prácticas
-    - Diseño de API
-    - Diseño de UI
-    - Patrones de diseño
+1. Presentation layer: Responsible for displaying the user interface and managing user interaction with the app, using MVVM
+2. Domain layer: This layer contains the business logic of the application. Contains business rules and entity classes
+3. Data layer: This layer is responsible for obtaining and storing the application data, including access to the local database and remote APIs
 
-## Enviando los entregables
+For the consume of services, it was decided to use the retrofit library due to its advantages compared to other libraries, among which are its easy integration, the use of its annotations to facilitate the construction of requests and the interpretation of responses, ease of data conversion with the help of the Gson library, its compatibility with OkHttp and its ease of use.
 
-Para publicar tu trabajo, deberás seguir estos pasos:
+To facilitate data collection through the use of asynchronous programming, it was decided to use LiveData to update the user interface safely and in real time, since in addition to these two advantages it offers us, it helps us by combining it with the data cycle. lifetime of the activity or fragment, which means that the UI update can only be guaranteed when the activity or fragment is in active state.
 
-1. Crear un `pull request` con tu código, apuntando a la rama `master`
-2. Llenar este [formato](https://docs.google.com/forms/d/e/1FAIpQLSeiEq0dPXjLnni5OBHzNwGMs-NYWckzFgrn5PS18Culpojt-A/viewform)
-3. Mantente al pendiente de la retroalimentación.
-4. Genera los cambios conforme a los comentarios de tu mentor.
+For obtaining and issuing data, it was decided to use Flow since it allows us to transform and process the data asynchronously.
 
-## Para empezar
+And as an extra example of its use, it was decided to use RxJava instead of flow for the consumption of one of the services, to see the difference between using this library compared to others
 
-Para empezar, sigue los siguientes pasos:
+## Libraries
 
-1. Realiza `Fork` a este proyecto
-2. Convierte tu proyecto en privado
-3. Concede accesos a este proyecto a tu mentor
-4. Genera `commit` y sube tus cambios de manera periódica
-5. Realiza los cambios según los comentarios de tu mentor
-6. ¡Diviértete!
+```
+lifecycle_version = "2.5.1"
+retrofit_version = "2.9.0"
+gson_version = "2.10.1"
+rx_version = "3.0.0"
+materialDesigne_version = "1.2.0-alpha02"
+hilt_version = "2.44"
+nav_version = "2.5.3"
+splash_version = "1.0.0"
+glide_version = "4.14.2"
+okhttp_version = "5.0.0-alpha.2"
+room_version = "2.4.3"
+espresso_version = "3.5.1"
+junit_version = "1.1.3"
+mockk_version = "1.12.2"
+coroutines_version = "1.6.4"
+```
 
-## Entregables
+```
+// Material Design
+implementation 'com.google.android.material:material:1.8.0'
+implementation "com.google.android.material:material:$materialDesigne_version"
 
-Proporcionamos las fechas de entrega para que pueda organizarse; por favor, tome este desafío con seriedad e intente progresar constantemente.
-Vale la pena mencionar que solamente podrás obtener retroalimentación del equipo de revisión para tu primera entregable, de tal manera tendrás la oportunidad de corregir o mejorar tu código según nuestras sugerencias.
-Para el último entregable, proporcionaremos cierta retroalimentación, pero ya no habrá una última revisión posterior a ello. Si estás teniendo conflictos con algo, contacta a tu menor o cualquier encargada para obtener ayuda a tiempo. Siéntete libre de usar el canal de Slack.
+// SPLASH SCREEN
+implementation "androidx.core:core-splashscreen:$splash_version"
 
-## Primer Entregable
-Con base en el material de autoestudio y las mentorías hasta este entregable, sugerimos que desarrolles lo siguiente:
+// RETROFIT
+implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofit_version"
+implementation "com.google.code.gson:gson:$gson_version"
 
-- Crear un cliente de red para poder consumir los siguientes servicios haciendo uso de `GsonAdapter` para obtener las clases de manera sencilla:
-  - https://bitso.com/api_info#available-books
-  - https://bitso.com/api_info#ticker
-  - https://bitso.com/api_info#order-book 
-- Busca imágenes que representen las monedas y agrega dichas imágenes a la lista de monedas.
-- Trabaja con MVVM y LiveData para poder diseñar la aplicación:
-    - Crear una pantalla que va a mostrar una lista de las monedas utilizando el servicio `available-books`
-    - Crear una pantalla de detalle que mostrará el último precio, el más alto y el más bajo. Además, mostrar una lista de `bids` y `asks` haciendo uso del servicio `order-book`
-- Hacer uso de buenas prácticas
+// RXJAVA
+implementation "io.reactivex.rxjava3:rxandroid:$rx_version"
+implementation "io.reactivex.rxjava3:rxjava:$rx_version"
 
-### **Fecha de Entrega 2 de Noviembre**
+// OKHTTP
+implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+implementation "com.squareup.okhttp3:okhttp-urlconnection:4.4.1"
 
-> Nota: la lista anterior de este entregable es sólo una guía para ayudarte a distribuir la carga de trabajo; puedes entregar más o menos elementos si es necesario. De igual manera, si entregas menos elementos en este punto, tendrás que cubrir los elementos restantes en el siguiente entregable.
+// VIEWMODEL
+implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
 
-## Segundo Entregable
+// HILT
+implementation "com.google.dagger:hilt-android:$hilt_version"
+kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
-Con base en el material de autoestudio y las mentorías hasta este entregable, sugerimos que desarrolles lo siguiente:
+// NAVIGATION
+implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
-- Agregar persistencia utilizando `Room` para poder usar la aplicación cuando no se cuente con conexión a internet.
-- Agregar la librería `OkHttp` para hacer uso del `HttpLoggingInterceptor` para todos los eventos de red, y además añadir el header `User-Agent`
-- Implementar `function type`, `lambdas` y `extension function`
-- Agregar algunas pruebas unitarias y de vista.
-- Hacer _refactor_ de la vista, actualiza tus layouts haciendo uso de `ConstraintLayout`
-- Hacer uso de buenas prácticas
+// Glide
+implementation "com.github.bumptech.glide:glide:$glide_version"
+kapt "com.github.bumptech.glide:compiler:$glide_version"
 
-### **Fecha de Entrega 9 de Noviembre**
+// ROOM
+implementation "androidx.room:room-ktx:$room_version"
+kapt "androidx.room:room-compiler:$room_version"
 
-> Nota: la lista anterior de este entregable es sólo una guía para ayudarte a distribuir la carga de trabajo; puedes entregar más o menos elementos si es necesario. De igual manera, si entregas menos elementos en este punto, tendrás que cubrir los elementos restantes en el siguiente entregable.
+// TEST
+testImplementation 'junit:junit:4.13.2'
+testImplementation "io.mockk:mockk:$mockk_version"
+testImplementation "org.mockito:mockito-inline:3.11.2"
+testImplementation "androidx.arch.core:core-testing:2.2.0"
+testImplementation "org.mockito.kotlin:mockito-kotlin:4.1.0"
+testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+androidTestImplementation 'androidx.test:core:1.5.0'
+androidTestImplementation "androidx.test:runner:1.5.2"
+androidTestImplementation "androidx.test.ext:junit:$junit_version"
+androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
+androidTestImplementation "androidx.test.espresso:espresso-accessibility:$espresso_version"
 
-## Tercer y último entregable
-- Agrega un `linter` para poder hacer análisis estático de tu código.
-- Has uso de algunas características avanzadas de Kotlin como: `inline functions`, `tail recursive`, `delegated properties` y `collection operations`
-- Implementa `coroutines` y usa `suspend functions` con _Retrofit_.
-- Implementa Hilt como _framework_ de inyección de dependencias.
-- Implementa `navigation component` para navegar entre las distintas pantallas.
-- Implementa RxJava2 o RxJava3, envuelve la respuesta de _Retrofit_ y crea un `observable` que vaya a ser observado o cambia la respuesta de _Retrofit_ a un `Observable`.
-- Hacer uso de buenas prácticas
-
-### **Fecha de Entrega 16 de Noviembre**
-
-
-> Importante: este es el último entregabble, por lo cual todos los requerimientos deben ser incluidos. Proveeremos retroalimentación de tu entregable y tendrás 3 días más para aplicar los cambios. En el tercer día, dejaremos de recibir cambios a las 11:00 a.m.
 
 

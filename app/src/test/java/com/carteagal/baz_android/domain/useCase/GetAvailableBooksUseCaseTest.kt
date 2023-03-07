@@ -8,6 +8,7 @@ import com.carteagal.baz_android.data.remote.model.base.BaseError
 import com.carteagal.baz_android.data.remote.network.Resources
 import com.carteagal.baz_android.data.remote.repository.AvailableBooksRepositoryNetwork
 import com.carteagal.baz_android.domain.mapper.availableMapper
+import com.carteagal.baz_android.domain.useCase.networkUseCase.GetAvailableBooksUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -36,22 +37,18 @@ internal class GetAvailableBooksUseCaseTest{
     @Before
     fun onBefore(){
         MockKAnnotations.init(this)
-        getAvailableBooksUseCase = GetAvailableBooksUseCase(
-            availableBooksRepositoryNetwork,
-            localRepository
-        )
+        getAvailableBooksUseCase = GetAvailableBooksUseCase(availableBooksRepositoryNetwork)
     }
 
     @Test
     fun `When Response Api is Success`() = runBlocking {
         //Given
-        coEvery { localRepository.insertAllBooks(availableMapper(availableBooksResponseMock)) }
         coEvery { availableBooksRepositoryNetwork.getAllBooks() } returns flow {
             emit(Resources.Success(data = availableBooksResponseMock))
         }
 
         //When
-        getAvailableBooksUseCase()
+        availableBooksRepositoryNetwork.getAllBooks()
 
         //Then
         Assert.assertEquals(localRepository.getAllBooks(),availableMapper(availableBooksResponseMock))

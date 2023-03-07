@@ -1,7 +1,10 @@
 package com.carteagal.baz_android.di
 
+import com.carteagal.baz_android.BuildConfig
+import com.carteagal.baz_android.BuildConfig.BUILD_TYPE
 import com.carteagal.baz_android.data.remote.service.CryptoApiClient
 import com.carteagal.baz_android.utils.Constants.BASE_URL
+import com.carteagal.baz_android.utils.Constants.BUILD_TYPE_DEBUG
 import com.carteagal.baz_android.utils.Constants.TIME_OUT
 import com.carteagal.baz_android.utils.Constants.USER_AGENT
 import dagger.Module
@@ -24,7 +27,9 @@ object NetworkModule {
     @Singleton
     @Provides
     fun providesHttpLoggingInterceptor(): HttpLoggingInterceptor =
-        HttpLoggingInterceptor().apply { level = BODY }
+        HttpLoggingInterceptor().apply {
+            if(BUILD_TYPE == BUILD_TYPE_DEBUG) level = BODY
+        }
 
     @Singleton
     @Provides

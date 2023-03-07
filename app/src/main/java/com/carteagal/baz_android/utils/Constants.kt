@@ -4,6 +4,8 @@ object Constants {
     const val BASE_URL = "https://api.bitso.com/v3/"
     const val BASE_IMAGE_URL = "https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master"
 
+    const val BUILD_TYPE_DEBUG = "debug"
+
     const val SIZE_COLOR = "/128/color/"
     const val EXTENSION_PNG = ".png"
 
